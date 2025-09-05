@@ -1,0 +1,727 @@
+<!-- <div *ngIf="!addYoutubeButton; else youtubeLink"> -->
+
+
+
+
+
+
+
+<!-- avatar -->
+<div class="row" *ngIf="addAvatar">
+  <ng-container>
+    <ng-container *ngIf="files.length; else showExistingFiles">
+      <div *ngFor="let file of files" class="col-12">
+        <div class="" *ngIf="!file.type.startsWith('application'); else newDoc">
+          <!-- href="javascript:void(0)" -->
+          <div class="avata_user relative w-full aspect-square bg-indigo-50 rounded-full shadow shadow-indigo-100 p-2" *ngIf="!addYoutubeButton">
+            <a href="javascript:void(0)" class="col-10 fileInfos">
+              <div class="flex items-center gap-2" style="align-items: center">
+                <img
+                  [src]="url"
+                  [alt]="file.name"
+                  class="poster w-full aspect-square object-cover  rounded-full border"
+                  *ngIf="file.type == 'image/jpeg' || file.type == 'image/png'"
+                />
+              </div>
+            </a>
+            <div (click)="clearFiles()" class="delete_avatar w-full h-full rounded-full top-0 left-0 flex justify-center items-center bg-red-100/80 absolute z-50">
+              <span class="preventDefault relative w-6 cursor-pointer text-red-500">
+                <svg fill="none" class="preventDefault" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div *ngIf="addYoutubeButton" class="fileBlock">
+            <app-youtube-video-preview [video]="url"></app-youtube-video-preview>
+            <a (click)="clearFiles()">
+              <img
+                class="img-fluid deleteBtn mr-50"
+                src="assets/images/icons/delete.svg"
+                alt="delete"
+              />
+            </a>
+          </div>
+        </div>
+        <ng-template #newDoc>
+          <div class="fileBlock fileUpload">
+            <div class="d-flex align-items-center">
+              <img
+                src="./assets/images/icons/doc/PDF.svg"
+                *ngIf="file.type.endsWith('pdf')"
+                alt=""
+              />
+              <img
+                src="./assets/images/icons/doc/DOC.svg"
+                *ngIf="
+                  (file.type.startsWith('application') &&
+                    file.type.endsWith('document')) ||
+                  file.name.includes('doc') ||
+                  file.name.includes('docx')
+                "
+                alt=""
+              />
+              <img
+                src="./assets/images/icons/doc/PPT.svg"
+                *ngIf="
+                  (file.type.startsWith('application') &&
+                    file.type.endsWith('presentation')) ||
+                  file.name.includes('ppt') ||
+                  file.name.includes('pptx')
+                "
+                alt=""
+              />
+              <a href="javascript:void(0)" class="fileInfos pl-1">
+
+                <div class="docName">
+                  {{ file.name }}
+                </div>
+                <div class="text-muted small">
+                  {{utils.calculateFileSize(file?.size)}}
+                </div>
+              </a>
+            </div>
+            <a (click)="clearFiles()">
+              <img
+                class="img-fluid deleteBtn mr-50"
+                src="assets/images/icons/delete.svg"
+                alt="delete"
+              />
+            </a>
+          </div>
+        </ng-template>
+      </div>
+    </ng-container>
+    <ng-template #showExistingFiles>
+      <div *ngFor="let file of getExistingFiles()" class="col-12 pt-3">
+        <div *ngIf="!file.type.startsWith('application'); else oldDoc">
+
+
+          <div class="avata_user relative w-full aspect-square bg-indigo-50 rounded-full shadow shadow-indigo-100 p-2" *ngIf="!addYoutubeButton">
+            <a href="javascript:void(0)" class="col-10 fileInfos">
+              <div class="flex items-center gap-2" style="align-items: center">
+                <img
+                  [src]="environment.Upload.apiUrl + file.url"
+                  [alt]="file.name"
+                  class="poster w-full aspect-square object-cover  rounded-full border"
+                  *ngIf="file.type == 'image/jpeg' || file.type == 'image/png'"
+                />
+              </div>
+            </a>
+            <div (click)="clearExistingFiles()" class="delete_avatar w-full h-full rounded-full top-0 left-0 flex justify-center items-center bg-red-100/70 absolute z-50">
+              <span class="relative w-6 cursor-pointer text-red-500">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div *ngIf="addYoutubeButton" class="fileBlock">
+            <a (click)="clearExistingFiles()">
+              <img
+                class="img-fluid deleteBtn mr-50"
+                src="assets/images/icons/delete.svg"
+                alt="delete"
+              />
+            </a>
+          </div>
+        </div>
+        <ng-template #oldDoc>
+          <div class="fileBlock fileUpload">
+            <div class="d-flex align-items-center">
+              <img
+                src="./assets/images/icons/doc/PDF.svg"
+                *ngIf="file.type.endsWith('pdf')"
+                alt=""
+              />
+              <img
+                src="./assets/images/icons/doc/DOC.svg"
+                *ngIf="
+                  (file.type.startsWith('application') &&
+                    file.type.endsWith('document')) ||
+                  file.name.includes('doc') ||
+                  file.name.includes('docx')
+                "
+                alt=""
+              />
+              <img
+                src="./assets/images/icons/doc/PPT.svg"
+                *ngIf="
+                  (file.type.startsWith('application') &&
+                    file.type.endsWith('presentation')) ||
+                  file.name.includes('ppt') ||
+                  file.name.includes('pptx')
+                "
+                alt=""
+              />
+              <a
+                [href]="environment.Upload.apiUrl + file.url"
+                target="_blank"
+                class="fileInfos pl-1"
+              >
+              <div class="docName">
+                {{ file.originName }}
+              </div>
+              <div class="text-muted small">
+                {{ file?.size}}
+              </div>
+              </a>
+            </div>
+            <a (click)="clearExistingFiles()">
+              <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+              </svg>
+            </a>
+          </div>
+        </ng-template>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>
+<ng-container *ngIf="!multiple && !addAvatar && files.length > 0 || !multiple && !addAvatar && existingFiles">
+  <ng-container *ngIf="files.length; else showExistingFiles">
+    <div *ngFor="let file of files" class="col-12 pt-3">
+      <div class="" *ngIf="!file.type.startsWith('application'); else newDoc">
+       <div class="fileBlock flex items-center justify-between gap-2 bg-indigo-50 rounded-lg mb-1 p-2 w-full" *ngIf="!addYoutubeButton">
+          <a href="javascript:void(0)" class="col-10 fileInfos">
+            <div class="flex items-center gap-2" style="align-items: center">
+              <img
+                [src]="url"
+                [alt]="file.name"
+                class="poster w-[80px] rounded-md"
+                *ngIf="file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/webp'"
+              />
+              <img
+                src="assets/images/videopholder.jpg"
+                [alt]="file.name"
+                class="poster"
+                *ngIf="file.type == 'video/mp4'"
+              />
+              <span>
+                {{ file.name | shorten: 40 }}
+              </span>
+            </div>
+
+          </a>
+          <a (click)="clearFiles()">
+            <svg fill="none" class="w-5 text-red-500" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div *ngIf="addYoutubeButton" class="fileBlock">
+          <app-youtube-video-preview [video]="url"></app-youtube-video-preview>
+          <a (click)="clearFiles()"  class="cursor-pointer preventDefault">
+            <img
+              class="img-fluid deleteBtn mr-50 preventDefault"
+              src="assets/images/icons/delete.svg"
+              alt="delete"
+            />
+          </a>
+        </div>
+      </div>
+      <ng-template #newDoc>
+        <div class="fileBlock fileUpload">
+          <div class="d-flex align-items-center">
+            <img
+              src="./assets/images/icons/doc/PDF.svg"
+              *ngIf="file.type.endsWith('pdf')"
+              alt=""
+            />
+            <img
+              src="./assets/images/icons/doc/DOC.svg"
+              *ngIf="
+                (file.type.startsWith('application') &&
+                  file.type.endsWith('document')) ||
+                file.name.includes('doc') ||
+                file.name.includes('docx')
+              "
+              alt=""
+            />
+            <img
+              src="./assets/images/icons/doc/PPT.svg"
+              *ngIf="
+                (file.type.startsWith('application') &&
+                  file.type.endsWith('presentation')) ||
+                file.name.includes('ppt') ||
+                file.name.includes('pptx')
+              "
+              alt=""
+            />
+            <a href="javascript:void(0)" class="fileInfos pl-1">
+
+              <div class="docName">
+                {{ file.name }}
+              </div>
+              <div class="text-muted small">
+                {{utils.calculateFileSize(file?.size)}}
+              </div>
+            </a>
+          </div>
+          <a (click)="clearFiles()"  class="cursor-pointer preventDefault">
+            <img
+              class="img-fluid deleteBtn mr-50 preventDefault"
+              src="assets/images/icons/delete.svg"
+              alt="delete"
+            />
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+  <ng-template #showExistingFiles>
+    <div *ngFor="let file of getExistingFiles()" class="col-12 pt-3">
+      <div *ngIf="!file.type.startsWith('application'); else oldDoc">
+        <div class="fileBlock flex items-center justify-between gap-2 bg-indigo-50 rounded-lg mt-1 p-2 w-full" *ngIf="!addYoutubeButton">
+          <a
+            [href]="environment.Upload.apiUrl + file.url"
+            target="_blank"
+            class="col-10 fileInfos"
+          >
+            <div class="flex items-center gap-2" style="align-items: center">
+              <img
+                [src]="environment.Upload.apiUrl + file.url"
+                [alt]="file.name"
+                class="poster w-[60px]"
+                *ngIf="file.type == 'image/jpeg' || file.type == 'image/png' || file.type == 'image/webp'"
+              />
+              <img
+                src="assets/images/videopholder.jpg"
+                [alt]="file.name"
+                class="poster"
+                *ngIf="file.type == 'video/mp4'"
+              />
+              <div class="text-[13px] font-play-regular truncate max-w-[250px]">
+                {{ file.name | shorten: 40 }}
+              </div>
+            </div>
+          </a>
+          <a (click)="clearExistingFiles()">
+            <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+            </svg>
+          </a>
+        </div>
+
+        <div *ngIf="addYoutubeButton" class="fileBlock">
+         <a (click)="clearExistingFiles()"  class="cursor-pointer preventDefault">
+            <img
+              class="img-fluid deleteBtn mr-50 preventDefault"
+              src="assets/images/icons/delete.svg"
+              alt="delete"
+            />
+          </a>
+        </div>
+      </div>
+      <ng-template #oldDoc>
+        <div class="fileBlock fileUpload">
+          <div class="d-flex align-items-center">
+            <img
+              src="./assets/images/icons/doc/PDF.svg"
+              *ngIf="file.type.endsWith('pdf')"
+              alt=""
+            />
+            <img
+              src="./assets/images/icons/doc/DOC.svg"
+              *ngIf="
+                (file.type.startsWith('application') &&
+                  file.type.endsWith('document')) ||
+                file.name.includes('doc') ||
+                file.name.includes('docx')
+              "
+              alt=""
+            />
+            <img
+              src="./assets/images/icons/doc/PPT.svg"
+              *ngIf="
+                (file.type.startsWith('application') &&
+                  file.type.endsWith('presentation')) ||
+                file.name.includes('ppt') ||
+                file.name.includes('pptx')
+              "
+              alt=""
+            />
+            <a
+              [href]="environment.Upload.apiUrl + file.url"
+              target="_blank"
+              class="fileInfos pl-1"
+            >
+            <div class="docName">
+              {{ file.originName }}
+            </div>
+            <div class="text-muted small">
+              {{ file?.size}}
+            </div>
+            </a>
+          </div>
+          <a (click)="clearExistingFiles()">
+            <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+            </svg>
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+</ng-container>
+<ngx-file-drop
+class="h-full"
+[ngClass]="{'exist-class' : files.length > 0}"
+[multiple]="multiple"
+(onFileDrop)="dropped($event)"
+*ngIf="!addYoutubeButton;"
+>
+
+<ng-container *ngIf="(files.length == 0 && getExistingFiles().length == 0 && !multiple) || multiple">
+  <ng-template
+  ngx-file-drop-content-tmp
+  let-openFileSelector="openFileSelector"
+>
+<div class="w-full realtive ">
+  <div *ngIf="!addAvatar" (click)="openFiles($event)"   class=" w-full h-full flex relative">
+    <span (click)="openFileSelector()" #openDropDown class="openDropDown"></span>
+
+
+    <div class="w-full bg-blue-500/5 border-[2px] border-dashed border-[#dddcdc] rounded-[8px] p-5 flex justify-center">
+      <div class="flex flex-col items-center my-7">
+
+         <div class="flex justify-center mb-5">
+
+          <svg class="w-16 text-[rgb(255,108,47)]" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"></path>
+          </svg>
+         </div>
+         <!-- <span class="text-[12px] font-poppins-regular text-[#38312D9C]">Importez un fichier ici</span> -->
+         <h1 class="text-[24px] font-nunito-semiBold text-gray-800">Drop your images here, <span class="text-[rgb(255,108,47)]"> or click to browse</span></h1>
+         <span class="text-[13px] font-nunito-regular text-gray-800/50">1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed</span>
+      </div>
+    </div>
+  </div>
+  <!-- details  -->
+  <div *ngIf=" getFilesNumber() > 0" class="preventDefault relative  w-full mt-1 bg-white rounded-lg p-1 preventDefault  pointer-events-auto z-50">
+    <ng-template #youtubeLink>
+      <form #videoLinkForm="ngForm">
+        <div class="form-group">
+          <input
+            type="text"
+            id="videoLink"
+            class="form-control"
+            name="videoLink"
+            placeholder="hello"
+            [(ngModel)]="videoLink"
+            (ngModelChange)="updateVideoPreview()"
+            (keyup)="import(videoLinkForm)"
+          />
+        </div>
+      </form>
+    </ng-template>
+
+    <div class="row flex flex-wrap gap-1" *ngIf="!addAvatar">
+      <ng-container *ngIf="multiple; else solo">
+        <ng-container *ngFor="let file of files_; let i = index" >
+          <div *ngIf="!file.type.startsWith('application'); else newDoc" class="w-[96px] aspect-square relative group">
+            <a href="javascript:void(0)" class="shrink w-[80%]">
+              <div class="flex items-center gap-2" >
+                <img
+                  [src]="file?.url"
+                  [alt]="file.name"
+                  class="poster preventDefault w-[96px] aspect-square object-cover rounded-[8px]"
+                  *ngIf="file.type == 'image/jpeg' || file.type == 'image/png'"
+                />
+                <img
+                  src="assets/images/videopholder.jpg"
+                  [alt]="file.name"
+                  class="poster preventDefault  w-[96px] aspect-square object-cover rounded-[8px]"
+                  *ngIf="file.type == 'video/mp4'"
+                />
+              </div>
+            </a>
+
+            <a (click)="deleteFile(i)" class="hidden group-hover:inline-block border border-white/30 cursor-pointer preventDefault text-red-500 p-2 bg-black/20 rounded-md absolute top-1 left-1">
+              <svg fill="none" class="w-5 cursor-pointer pointer-events-none preventDefault" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+              </svg>
+            </a>
+          </div>
+          <ng-template #newDoc>
+            <div class="flex items-center justify-between gap-2 border bg-[#E4EAF066] rounded-[20px] mb-1 p-[7px] w-full">
+              <a href="javascript:void(0)" class="shrink w-[80%]">
+               <div class="flex items-center gap-2" >
+                <!-- PDF -->
+                <img src="./assets/images/svg/PDF.svg" class="w-[40px]"  *ngIf="file.type.startsWith('application') && file.type.endsWith('pdf')" />
+
+                <!-- word -->
+                <img src="./assets/images/svg/DOC.svg" class="w-[40px]"
+                    *ngIf="(file.type.startsWith('application') && file.type.endsWith('document')) ||
+                    file.name.includes('.doc') || file.name.includes('.docx')"
+                />
+                <!-- ppt -->
+                <img src="./assets/images/svg/PPT.svg" class="w-[40px]"
+                  *ngIf="(file.type.startsWith('application') && file.type.endsWith('presentation')) ||
+                  file.name.includes('.ppt') || file.name.includes('.pptx')"
+                />
+                <span class="truncate text-sm"> {{ file.name | shorten: 40 }} </span>
+              </div>
+              </a>
+              <a (click)="deleteFile(i)"  class="cursor-pointer preventDefault">
+                <svg fill="none" class="w-5 preventDefault" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                </svg>
+              </a>
+            </div>
+          </ng-template>
+        </ng-container>
+        <div class="row flex flex-wrap gap-1">
+          <div *ngFor="let file of existingFiles; let i = index" class="w-[96px] aspect-square relative group">
+            <a [href]="environment.Upload.apiUrl + file.url" target="_blank" class="grow cursor-pointer preventDefault flex items-center justify-start  text-blue_color overflow-hidden  gap-2" >
+               <ng-container *ngIf="!file?.url?.includes('.pdf') &&  (!file?.url?.includes('.doc') || !file?.url?.includes('.docx')) &&  (!file?.url?.includes('.ppt') || !file?.url?.includes('.pptx'))  && (!file?.url?.includes('.xlsx'))">
+                 <img [src]="environment.Upload.apiUrl + file.url" class="w-[96px] aspect-square rounded-[16px] object-cover pointer-events-none" alt="">
+               </ng-container>
+
+              <img
+              class="w-[51px] aspect-square rounded-[16px] object-cover  pointer-events-none"
+              src="./assets/images/svg/PDF.svg"
+              *ngIf="file?.url?.includes('.pdf')"
+              alt=""
+            />
+            <img
+            class="w-[51px] aspect-square rounded-[16px] object-cover pointer-events-none"
+              src="./assets/images/svg/DOC.svg"
+              *ngIf="
+                file?.url?.includes('.doc') ||
+                file?.url?.includes('.docx')
+              "
+              alt=""
+            />
+            <img
+            class="w-[51px] aspect-square rounded-[16px] object-cover pointer-events-none"
+              src="./assets/images/svg/PPT.svg"
+              *ngIf="
+                file?.url?.includes('.ppt') ||
+                file?.url?.includes('.pptx')
+              "
+              alt=""
+            />
+
+              <span class="truncate text-sm font-inter-regular">{{ file.originName | shorten: 40 }}</span>
+            </a>
+            <a (click)="deleteExistingFile(i)"  class="hidden group-hover:inline-block border border-white/30 cursor-pointer preventDefault text-red-500 p-2 bg-black/20 rounded-md absolute top-1 left-1">
+              <svg fill="none" class="w-5 preventDefault pointer-events-none text-red-500" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #solo>
+        <ng-container *ngIf="files.length; else showExistingFiles">
+          <div *ngFor="let file of files" class="col-12 pt-3">
+            <div class="" *ngIf="!file.type.startsWith('application'); else newDoc">
+
+              <div class="fileBlock flex items-center justify-between gap-2 bg-indigo-50 rounded-lg mb-1 p-2 w-full" *ngIf="!addYoutubeButton">
+                <a href="javascript:void(0)" class="col-10 fileInfos">
+                  <div class="flex items-center gap-2" style="align-items: center">
+                    <img
+                      [src]="url"
+                      [alt]="file.name"
+                      class="poster w-[80px] rounded-md"
+                      *ngIf="file.type == 'image/jpeg' || file.type == 'image/png'"
+                    />
+                    <img
+                      src="assets/images/videopholder.jpg"
+                      [alt]="file.name"
+                      class="poster"
+                      *ngIf="file.type == 'video/mp4'"
+                    />
+                    <span>
+                      {{ file.name | shorten: 40 }}
+                    </span>
+                  </div>
+                </a>
+                <a (click)="clearFiles()">
+                  <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                  </svg>
+                </a>
+              </div>
+
+              <div *ngIf="addYoutubeButton" class="fileBlock">
+                <app-youtube-video-preview [video]="url"></app-youtube-video-preview>
+                <a (click)="clearFiles()"  class="cursor-pointer preventDefault">
+                  <img
+                    class="img-fluid deleteBtn mr-50 preventDefault"
+                    src="assets/images/icons/delete.svg"
+                    alt="delete"
+                  />
+                </a>
+              </div>
+            </div>
+            <ng-template #newDoc>
+              <div class="fileBlock fileUpload">
+                <div class="d-flex align-items-center">
+                  <img
+                    src="./assets/images/icons/doc/PDF.svg"
+                    *ngIf="file.type.endsWith('pdf')"
+                    alt=""
+                  />
+                  <img
+                    src="./assets/images/icons/doc/DOC.svg"
+                    *ngIf="
+                      (file.type.startsWith('application') &&
+                        file.type.endsWith('document')) ||
+                      file.name.includes('doc') ||
+                      file.name.includes('docx')
+                    "
+                    alt=""
+                  />
+                  <img
+                    src="./assets/images/icons/doc/PPT.svg"
+                    *ngIf="
+                      (file.type.startsWith('application') &&
+                        file.type.endsWith('presentation')) ||
+                      file.name.includes('ppt') ||
+                      file.name.includes('pptx')
+                    "
+                    alt=""
+                  />
+                  <a href="javascript:void(0)" class="fileInfos pl-1">
+
+                    <div class="docName">
+                      {{ file.name }}
+                    </div>
+                    <div class="text-muted small">
+                      {{utils.calculateFileSize(file?.size)}}
+                    </div>
+                  </a>
+                </div>
+                <a (click)="clearFiles()"  class="cursor-pointer preventDefault">
+                  <img
+                    class="img-fluid deleteBtn mr-50 preventDefault"
+                    src="assets/images/icons/delete.svg"
+                    alt="delete"
+                  />
+                </a>
+              </div>
+            </ng-template>
+          </div>
+        </ng-container>
+        <ng-template #showExistingFiles>
+          <div *ngFor="let file of getExistingFiles()" class="col-12 pt-3">
+            <div *ngIf="!file.type.startsWith('application'); else oldDoc">
+              <div class="fileBlock flex items-center justify-between gap-2 bg-indigo-50 rounded-lg mt-1 p-2 w-full" *ngIf="!addYoutubeButton">
+                <a
+                  [href]="environment.Upload.apiUrl + file.url"
+                  target="_blank"
+                  class="col-10 fileInfos"
+                >
+                  <div class="flex items-center gap-2" style="align-items: center">
+                    <img
+                      [src]="environment.Upload.apiUrl + file.url"
+                      [alt]="file.name"
+                      class="poster w-[60px]"
+                      *ngIf="file.type == 'image/jpeg' || file.type == 'image/png'"
+                    />
+                    <img
+                      src="assets/images/videopholder.jpg"
+                      [alt]="file.name"
+                      class="poster"
+                      *ngIf="file.type == 'video/mp4'"
+                    />
+                    <span>
+                      {{ file.name | shorten: 40 }}
+                    </span>
+                  </div>
+
+                  <!-- {{ file.size }} -->
+                </a>
+                <a (click)="clearExistingFiles()">
+                  <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                  </svg>
+                </a>
+              </div>
+
+              <div *ngIf="addYoutubeButton" class="fileBlock">
+                <!-- <youtube-video-preview [video]="file.url"></youtube-video-preview> -->
+                <a (click)="clearExistingFiles()"  class="cursor-pointer preventDefault">
+                  <img
+                    class="img-fluid deleteBtn mr-50 preventDefault"
+                    src="assets/images/icons/delete.svg"
+                    alt="delete"
+                  />
+                </a>
+              </div>
+            </div>
+            <ng-template #oldDoc>
+              <div class="fileBlock fileUpload">
+                <div class="d-flex align-items-center">
+                  <img
+                    src="./assets/images/icons/doc/PDF.svg"
+                    *ngIf="file.type.endsWith('pdf')"
+                    alt=""
+                  />
+                  <img
+                    src="./assets/images/icons/doc/DOC.svg"
+                    *ngIf="
+                      (file.type.startsWith('application') &&
+                        file.type.endsWith('document')) ||
+                      file.name.includes('doc') ||
+                      file.name.includes('docx')
+                    "
+                    alt=""
+                  />
+                  <img
+                    src="./assets/images/icons/doc/PPT.svg"
+                    *ngIf="
+                      (file.type.startsWith('application') &&
+                        file.type.endsWith('presentation')) ||
+                      file.name.includes('ppt') ||
+                      file.name.includes('pptx')
+                    "
+                    alt=""
+                  />
+                  <a
+                    [href]="environment.Upload.apiUrl + file.url"
+                    target="_blank"
+                    class="fileInfos pl-1"
+                  >
+                  <div class="docName">
+                    {{ file.originName }}
+                  </div>
+                  <div class="text-muted small">
+                    {{ file?.size}}
+                  </div>
+                  </a>
+                </div>
+                <a (click)="clearExistingFiles()">
+                  <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
+                  </svg>
+                </a>
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+  <div *ngIf="addAvatar" (click)="openFileSelector()" class="without_avatar relative w-full aspect-square rounded-full overflow-auto p-2">
+      <img src="assets/images/svg/user1.svg" class="border bg-indigo-50 w-full h-full rounded-full" alt="">
+      <div class="apload_avatar cursor-pointer absolute w-full h-full top-0 left-0 bg-indigo-50 rounded-full flex justify-center items-center">
+        <svg class="w-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"></path>
+        </svg>
+      </div>
+  </div>
+</ng-template>
+</ng-container>
+
+</ngx-file-drop>
+

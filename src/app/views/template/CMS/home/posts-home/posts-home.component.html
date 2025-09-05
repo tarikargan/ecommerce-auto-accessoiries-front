@@ -1,0 +1,90 @@
+<!-- news-list.component.html -->
+<div  *ngIf="!showForm" class=" py-3">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-3">
+    <h1 class="text-[22px] font-play-bold text-gray-800">des publications</h1>
+    <app-button-primary *ngIf="newsList.length < 2" [btn_name]="'Add PostsHome'" (click)="toggleForm()" ></app-button-primary>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex justify-center items-center py-12">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && newsList.length === 0" class="text-center py-12">
+    <div class="text-gray-500 text-lg">No news items found</div>
+    <!-- <button
+      (click)="toggleForm()"
+      class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
+      Create your first news item
+    </button> -->
+    <div class="flex justify-center mt-3">
+      <app-button-primary  [btn_name]="'Create your first news item '" (click)="toggleForm()" ></app-button-primary>
+    </div>
+
+  </div>
+
+  <!-- PostsHome List -->
+  <div *ngIf="!loading && newsList.length > 0" class="space-y-2">
+    <div
+      *ngFor="let news of newsList"
+      class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden">
+
+      <div class="flex flex-col md:flex-row">
+        <!-- Image -->
+        <div class="">
+          <img
+            [src]="environment?.Upload?.apiUrl + news.image?.url"
+            [alt]="news.title"
+            class="w-full max-w-[230px] aspect-[1/0.8] md:h-full object-cover"
+            onerror="this.src='assets/placeholder.jpg'">
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 p-4">
+          <div class="flex justify-between items-start mb-4">
+            <h2 class="text-xl font-semibold text-gray-800 line-clamp-2">
+              {{ news.title }}
+            </h2>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2 ml-4">
+              <button
+                (click)="editPostsHome(news)"
+                class="text-blue-600 hover:text-blue-800 p-2 -mt-2 -mr-2 rounded-full hover:bg-blue-50 transition-colors duration-200"
+                title="Edit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 text-[rgb(255,108,47)]" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M4 22h4m12 0h-8m1.888-18.337l.742-.742a3.146 3.146 0 1 1 4.449 4.45l-.742.74m-4.449-4.448s.093 1.576 1.483 2.966s2.966 1.483 2.966 1.483m-4.449-4.45L7.071 10.48c-.462.462-.693.692-.891.947a5.2 5.2 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-.875 2.626m14.08-8.13L14.93 11.52m-3.41 3.41c-.462.462-.692.692-.947.891q-.451.352-.969.599c-.291.139-.601.242-1.22.448l-2.626.876m0 0l-.641.213a.848.848 0 0 1-1.073-1.073l.213-.641m1.501 1.5l-1.5-1.5"></path></svg>
+
+              </button>
+            </div>
+          </div>
+          <div class="relatrive mb-4 line-clamp-3" [innerHTML]="news.description">
+
+          </div>
+
+          <!-- Metadata -->
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-sm text-gray-500">
+            <div class="flex items-center gap-4">
+              <span *ngIf="news.button_name" class="bg-gray-100 px-2 py-1 rounded">
+                Button: {{ news.button_name }}
+              </span>
+              <span *ngIf="news.button_href" class="bg-blue-100 text-blue-600 px-2 py-1 rounded">
+                Has Link
+              </span>
+            </div>
+
+            <div>
+              Created: {{ news.created_at | date:'short' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="showForm" >
+  <app-postshome-form [editItem]="editItem" [eventType]="eventType" (updatedItem)="handleUpdatedItem($event)" (addedItem)="handleAdedNewItem($event)" (closeForm)="toggleForm()"></app-postshome-form>
+</div>

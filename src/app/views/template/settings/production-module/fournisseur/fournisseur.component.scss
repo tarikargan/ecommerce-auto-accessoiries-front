@@ -1,0 +1,191 @@
+::ng-deep{
+  .select_lang{
+    .ng-select{
+      position: relative !important;
+      z-index: 99 !important;
+      cursor: pointer !important;
+      outline: none;
+    }
+    .ng-select .ng-select-container{
+      position: relative;
+      border: 1px solid #E0E5F2 !important;
+      padding: 0.6rem 0.5rem !important;
+      border-radius: 8px !important;
+      box-shadow: none !important;
+      outline: none !important;
+     }
+     .ng-dropdown-panel.ng-select-bottom{
+      border-radius: 14px !important;
+      margin-top: 10px !important;
+      overflow: hidden;
+      border: none !important;
+      box-shadow: 0px 2px 6px rgba(168, 168, 168, 0.582);
+     }
+
+    .ng-select .ng-select-container .ng-value-container {
+      align-items: center;
+      padding-left: 3px !important;
+    }
+
+    .ng-select .ng-select-container{
+      height: initial !important;
+    }
+    .ng-select .ng-select-container .ng-value-container .ng-input{
+      // border: 1px solid blue !important;
+      position: absolute;
+      top: 50% !important;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+
+
+$height : 24px;
+$width :48px;
+$space: 3px;
+
+
+
+.table {
+  border-spacing: 0 0px;
+}
+
+
+
+.table tr {
+  border-radius: 20px;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-radius: 0 .625rem .625rem 0;
+
+}
+
+tr td:nth-child(1),
+tr th:nth-child(1) {
+  border-radius: .625rem 0 0 .625rem;
+}
+
+
+.checkbox{
+  appearance: none;
+  width: $width ;
+  height: $height;
+  // border:1px solid #aaa;
+  border-radius:$height;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: #f1f1f1f1;
+  cursor: pointer;
+
+  &::before{
+    content: '';
+    width: calc($height - $space * 2);
+    left : $space;
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #e5e5e5;
+    transition: all 0.4s ease-in-out;
+  }
+  &:checked{
+    background: #10A329;
+    &::before{
+      transform: translateX(calc($width - $height));
+      background: #fff;
+    }
+  }
+
+  &.active{
+    pointer-events: none;
+    cursor: none;
+    opacity: 0.6;
+    &::before{
+      border-color: rgb(240, 52, 52) rgb(255, 255, 255);
+      border-width: 2px;
+      border-style: solid;
+      box-shadow: 0px 0px 4px rgb(114, 87, 231);
+      animation: rotate 0.4s infinite linear;
+    }
+
+  }
+
+}
+
+@keyframes rotate {
+  0%{
+     transform: rotateZ(0deg);
+  }
+  100%{
+    transform: rotateZ(360deg);
+  }
+
+}
+
+
+input[type="checkbox"]:not(.checkbox) {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid #ebe9e9;
+  border-radius: 0.3em;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  &::before {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #10A329;
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+
+  &:checked{
+    border: 1px solid #10A329;
+  }
+  &:checked::before {
+    transform: scale(1);
+  }
+
+
+}
+
+
+
+.scrollbar_::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 4px;
+}
+
+/* Track */
+.scrollbar_::-webkit-scrollbar-track {
+  background: rgba(233, 233, 233, 0.4);
+  border-radius: 4px;
+}
+.scrollbar_:hover::-webkit-scrollbar-track {
+  background: rgba(233, 233, 233, 1);
+}
+
+/* Handle */
+.scrollbar_::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.4);
+  border-radius: 4px;
+}
+.scrollbar_:hover::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 1);
+}
+
+/* Handle on hover */
+.scrollbar_::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

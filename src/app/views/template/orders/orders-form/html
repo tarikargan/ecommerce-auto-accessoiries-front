@@ -1,0 +1,246 @@
+<div  class="w-full h-screen  bg-white rounded-l-md relative flex flex-col overflow-auto">
+
+  <header class="relative w-full ">
+    <div class="w-full relative flex justify-between items-center mb-5 shadow-lg shadow-gray-300/40 px-10 py-5 border-b">
+      <h1 class="text-[18px] whitespace-nowrap font-nunito-bold">{{ eventype == 'add' ? 'Ajouter une commande':'Modification de la commande' }}</h1>
+      <div class=" flex items-center gap-1 ">
+        <button type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-regular text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="closePopup()">Annuler</button>
+        <button *ngIf="eventype == 'add' || eventype == 'duplicate'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-regular text-white bg-valide_bg cursor-pointer" (click)="save()">
+          <ng-container *ngIf="!loading;else loading_">
+            Ajouter
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+        <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-regular text-white bg-orange-400 cursor-pointer" (click)="update()">
+          <ng-container *ngIf="!loading;else loading_">
+          Modifier
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+      </div>
+    </div>
+  </header>
+  <form [formGroup]="orderForm" class="w-full relative pt-12 lg:px-10 px-6 pb-10 grow overflow-auto scrollbar_" >
+      <div class="w-full gap-2">
+        <div class="flex flex-col relative ">
+          <label class="text-gray-800 font-nunito-regular text-[13px]">Choose Product</label>
+          <div class="select_coll relative w-full h-[48px]">
+            <ng-select [notFoundText]="'No items found'"  (change)="selectProduct($event)" appearance="outline" [items]="products" formControlName="product_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedProduct != null" class="border rounded-md mt-5 p-5 ">
+        <div class="flex justify-between mb-2 items-start">
+            <div class="width:calc(100% - 100px)">
+              <h5 class="font-nunito-regular text-[14px]">Details du produit : </h5>
+              <h3 class="font-nunito-semiBold text-[18px] mt-2">{{ selectedProduct?.title }} </h3>
+            </div>
+            <div class="w-[80px] min-w-[80px] rounded-md overflow-hidden">
+              <img class="relative w-full inline-flex" src="{{ selectedProduct?.photos?.src }}" alt="image de produit">
+            </div>
+        </div>
+        <hr />
+        <div class="flex items-start justify-between  mt-3">
+          <div>
+            <!-- choose taille -->
+            <h3 class="font-nunito-semiBold text-[16px]">Taille: <span class="">{{ capitalizeFirstLetter(selectedTaille) }}</span></h3>
+            <div class="flex flex-wrap gap-1">
+              <label *ngFor="let taille of tailles" (click)="handleChangeTaille(taille)" for="color1" class="{{ selectedTaille == taille ? 'border-2 border-blue-300 text-orange-600':'' }} flex items-center justify-center text-[14px] h-8 w-8 rounded-md bg-white-500 border-2 hover:border-blue-300 focus:outline-none">
+                {{ taille }}
+              </label>
+            </div>
+            <!-- choose color -->
+            <h3 class="font-nunito-semiBold text-[16px] mt-4">Couleur: <span class="">{{ capitalizeFirstLetter(selectedColor) }}</span></h3>
+            <div class="flex flex-wrap gap-1 mt-2">
+              <label *ngFor="let item of groupedTaille[selectedTaille]" (click)="handleChangeColor(item)" for="color1" class="{{ getColor(item?.color) }}  {{ selectedColor == item?.color ? 'border-2 border-blue-300':'' }} h-8 w-8 rounded-md bg-white-500 border-2 hover:border-blue-300 focus:outline-none relative">
+                <svg *ngIf="selectedColor == item?.color" class="text-white w-3 absolute right-[2px] bottom-[2px]" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+                </svg>
+              </label>
+            </div>
+          </div>
+
+          <div class="border rounded-2xl py-3 px-5">
+            <label for="" class="text-gray-800 font-nunito-semiBold text-[15px]">Quantité</label>
+            <div class="flex items-center gap-1 my-3">
+              <button (click)="rangePrice('decrement')" class="w-[24px] bg-gray-100 aspect-square rounded-full grid place-content-center">
+                <svg class="w-4 text-gray-500" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd" d="M4 10a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 10Z"></path>
+                </svg>
+              </button>
+              <input formControlName="quantite" (input)="handleChangeQuantity($event)" type="number" class="text-center input_number outline-none input_number text-sm h-[24px] w-[32px] block font-nunito-semiBold rounded-full border-gray-300 bg-white bg-clip-padding  py-3 font-normal text-black  focus:outline-none" />
+              <button (click)="rangePrice('increment')" class="w-[24px] bg-gray-100 aspect-square rounded-full grid place-content-center">
+                <svg class="w-4 text-gray-500" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="text-[13px] relative text-red-500" *ngIf="form.controls['quantite'].invalid">
+              <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['quantite'].errors?.['required'] && (form.controls['quantite'].dirty || form.controls['quantite'].touched)">This field is required</div>
+              </ng-container>
+            </div>
+            <p class="text-gray-400 text-[12px] font-nunito-light">1 article(s) au maximum</p>
+            <!-- montant -->
+            <div class="mt-2">
+              <label for="" class="text-gray-800 font-nunito-semiBold text-[15px]">Montant</label>
+              <div class="flex items-center relative  ">
+                <input formControlName="montant" type="number" class=" text-sm leading-4 ease block w-full input_number rounded-md  bg-white bg-clip-padding py-2 font-nunito-semiBold text-red-500 outline-none    focus:outline-none" />
+                <span [style.left]=" form.controls['montant'].value.toString().length * 8 +'px'" class="absolute font-nunito-semiBold text-gray-700 text-[12px]" >DH </span>
+                <span class="text-[12px] text-gray-400 font-nunito-light absolute right-0">{{ restQuantity + '/' + defaultQuantity }}</span>
+              </div>
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['montant'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['montant'].errors?.['required'] && (form.controls['montant'].dirty || form.controls['montant'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <!-- <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-regular text-[13px]">ref</label>
+          <input formControlName="ref" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['ref'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['ref'].errors?.['required'] && (form.controls['ref'].dirty || form.controls['ref'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div> -->
+        <!--  -->
+
+
+      </div>
+
+
+
+      <div class="flex flex-col relative mt-2">
+        <label class="text-gray-600 font-nunito-medium text-[13px]">Choose Etapes</label>
+        <div class="select_coll relative w-full h-[48px]">
+          <ng-select [notFoundText]="'No items found'" (change)="handleChangeEtape($event)" appearance="outline" [items]="etapes" formControlName="etape_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+            <ng-template ng-label-tmp let-item="item" >
+              <div class="flex gap-2 items-center">
+                <ng-template #noAvatar>
+                    <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                      {{ item.title }}
+                    </span>
+                </ng-template>
+                <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+      <!--  -->
+
+     <div class="w-full relative grid grid-cols-2 gap-2">
+        <div class="flex flex-col relative mt-2">
+          <label class="text-gray-600 font-nunito-medium text-[13px]">Choose Clients</label>
+          <div class="select_coll relative w-full h-[48px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="clients" formControlName="client_id" bindValue="id" bindLabel="nom" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.nom  }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.nom  }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <!--  -->
+        <!--  -->
+
+        <div class="flex flex-col relative mt-2">
+          <label class="text-gray-600 font-nunito-medium text-[13px]">Choose source</label>
+          <div class="select_coll relative w-full h-[48px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="sources" formControlName="source_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+     </div>
+
+      <div class="w-full relative grid grid-cols-2 gap-2">
+        <div class="flex flex-col relative mt-2">
+          <label class="text-gray-600 font-nunito-medium text-[13px]">Choose mode de livraison</label>
+          <div class="select_coll relative w-full h-[48px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="modeLivraisons" formControlName="mode_livraison_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+        <!--  -->
+        <div class="flex flex-col relative mt-2">
+          <label class="text-gray-600 font-nunito-medium text-[13px]">Choose offre</label>
+          <div class="select_coll relative w-full h-[48px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="offres" formControlName="offre_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item">
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <!--  -->
+      <div class="mt-5 flex flex-col">
+        <label for="" class="text-gray-800 font-nunito-medium text-[13px]">Commentaire</label>
+        <quill-editor trackChanges="all" formControlName="commentaire" placeholder="commentaire ..." [modules]="{ syntax: false, toolbar: myToolbar}"
+        [styles]="{minHeight: '140px'}"></quill-editor>
+        <!-- <input formControlName="commentaire" class="block w-full min-h-[48px] p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" rows="2"/> -->
+        <div class="text-[13px] relative text-red-500" *ngIf="form.controls['commentaire'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['commentaire'].errors?.['required'] && (form.controls['commentaire'].dirty || form.controls['commentaire'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+
+
+  </form>
+</div>

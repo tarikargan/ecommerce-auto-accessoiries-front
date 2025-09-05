@@ -1,0 +1,40 @@
+$height : 28px;
+$width :56px;
+$space: 3px;
+
+
+
+.checkbox{
+  appearance: none;
+  width: $width ;
+  height: $height;
+  // border:1px solid #aaa;
+  border-radius:$height;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: #fff;
+  border: 1px solid #FF6C2F;
+  cursor: pointer;
+
+  &::before{
+    content: '';
+    width: calc($height - $space * 2);
+    left : $space;
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #FF6C2F;
+    transition: all 0.4s ease-in-out;
+  }
+  &:checked{
+    background: #FF6C2F;
+    // box-shadow: 4px 4px 16px 0px #FF6C2F;
+    box-shadow: rgb(67, 24, 255,0.4) 0px 3px 12px -2px, rgb(0, 0, 0,0.3) 0px 3px 7px -3px;
+    &::before{
+      transform: translateX(calc($width - $height - 1px));
+      background: #fff;
+    }
+  }
+
+}

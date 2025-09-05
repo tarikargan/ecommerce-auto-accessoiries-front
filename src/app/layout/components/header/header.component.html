@@ -1,0 +1,54 @@
+<div class="w-full flex justify-between relative z-[99999]  rounded-[20px] p-3">
+  <div class="flex items-center gap-2 text-blue-950">
+      <p class="text-[14px]" >Entreprise Name</p>
+      <p class="text-[14px]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-4 mt-1" viewBox="0 0 512 512"><title>Chevron Forward</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M184 112l144 144-144 144"/></svg>
+      </p>
+      <a routerLink="/manager" class="text-[14px]">Dashboard</a>
+      <!-- <app-ng-dynamic-breadcrumb [bgColor]="breadcrumbConfig['bgColor']" [fontSize]="breadcrumbConfig['fontSize']" [fontColor]="breadcrumbConfig['fontColor']" [lastLinkColor]="breadcrumbConfig['lastLinkColor']" [symbol]="breadcrumbConfig['symbol']" ></app-ng-dynamic-breadcrumb> -->
+  </div>
+  <div class="flex items-center gap-3">
+      <div class="w-[50px] h-[50px] rounded-full text-blue-950 bg-white cursor-pointer relative" >
+        <span (click)="toggleSearch()"  class="w-full h-full grid place-content-center cursor-pointer" >
+          <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-6 text-primary" viewBox="0 0 512 512"><title>Search</title><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
+        </span>
+        <div class="absolute top-[55px] right-0 z-50" *ngIf="openDrop_search" >
+          <!-- <app-search (closeDrop)="toggleSearch()"></app-search> -->
+        </div>
+      </div>
+      <div class="w-[50px] h-[50px] rounded-full bg-white  relative">
+        <span (click)="toggleNotif()" class="w-full h-full grid place-content-center cursor-pointer">
+          <span *ngIf="notifCount == 0" class="absolute flex h-3 w-3 right-3 top-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span class="absolute inline-flex rounded-full h-3 w-3 bg-orange-400"></span>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-6 text-blue-950" viewBox="0 0 512 512"><title>Notifications</title><path d="M427.68 351.43C402 320 383.87 304 383.87 217.35 383.87 138 343.35 109.73 310 96c-4.43-1.82-8.6-6-9.95-10.55C294.2 65.54 277.8 48 256 48s-38.21 17.55-44 37.47c-1.35 4.6-5.52 8.71-9.95 10.53-33.39 13.75-73.87 41.92-73.87 121.35C128.13 304 110 320 84.32 351.43 73.68 364.45 83 384 101.61 384h308.88c18.51 0 27.77-19.61 17.19-32.57zM320 384v16a64 64 0 01-128 0v-16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+        </span>
+
+        <div class="absolute top-[55px] left-[50%] -translate-x-[50%] z-50" *ngIf="openDrop_notif" >
+            <!-- <app-notification  (closeDrop)="toggleNotif()" [role]="user.role"  [notifications]="notifications" [countNewNotif]="notifCount" (readNotif)="readNotif($event)" ></app-notification> -->
+        </div>
+      </div>
+      <div (click)="handToggleDropDown()" class="rounded-md h-[50px] relative cursor-pointer px-[10px]  flex items-center gap-2">
+         <div class=" relative rounded-full ">
+          <img *ngIf="user?.avatar; else noAvatar" class=" ring-2 w-[44px] ring-gray-300 aspect-square object-cover shadow shadow-green-100 rounded-full" src="{{ environment.Upload.apiUrl + user?.avatar?.url }}" alt="">
+         </div>
+         <ng-template #noAvatar>
+            <img src="assets/images/user1.svg" class="w-[44px] aspect-square ring-2 ring-gray-300 rounded-full object-cover" alt="">
+          </ng-template>
+          <div  >
+            <ng-container *ngIf="user?.email;else noUserInfo">
+              <h3 class="font-nunito-medium text-[14px] max-w-[200px] trancute text-blue-950">{{user.fName + ' ' + user.lName}}</h3>
+              <p class="font-nunito-regular text-[12px] max-w-[200px] trancute text-blue-950">{{user.email}}</p>
+            </ng-container>
+          </div>
+          <ng-template #noUserInfo>
+            <h3 class="bg-slate-200 h-3 w-[100px] animate-pulse"></h3>
+            <!-- <p class="bg-slate-200 h-2 w-[80px] animate-pulse mt-1"></p> -->
+          </ng-template>
+          <!-- user drop-down -->
+          <div *ngIf="openDrop_down" class="w-full absolute top-[45px] right-0 rounded-b-md shadow">
+              <app-user-dropdown (closeDrop)="handToggleDropDown()" (logout)="logOut()" [role]="user.role" ></app-user-dropdown>
+          </div>
+  </div>
+</div>

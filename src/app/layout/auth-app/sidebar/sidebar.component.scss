@@ -1,0 +1,16 @@
+.router-link{
+  svg,
+  span{
+    @apply opacity-60
+  }
+
+  &.active span,
+  &:hover span{
+    @apply opacity-100;
+  }
+  &.active svg,
+  &:hover svg{
+    @apply opacity-100 text-orange-400;
+  }
+}
+

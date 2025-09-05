@@ -1,0 +1,23 @@
+
+<div class="w-full h-screen relative bg-[#EDEEF5] flex">
+  <!-- <div class="fixed top-0 left-0 w-full h-[260px] bg-img">
+
+  </div> -->
+  <div class="w-[300px] shrink-0 h-screen relative z-50">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="content_area   grow h-screen pr-6 pl-3 py-6 scrollbar_ {{ false ? 'overflow-hidden':'overflow-y-auto' }} relative">
+    <!-- navigation -->
+    <app-header></app-header>
+    <!-- content -->
+    <div class="w-full relative mt-3 ">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- toastr -->
+    <!-- <div class="absolute w-full h-[100px]  bottom-0 left-0 scale-100 pointer-events-none">
+      <app-toastr></app-toastr>
+    </div> -->
+
+  </div>
+</div>

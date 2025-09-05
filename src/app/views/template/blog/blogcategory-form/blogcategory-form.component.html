@@ -1,0 +1,17 @@
+<form [formGroup]="categoryForm" class="relative mt-2">
+  <div class="bg-white rounded-md  flex relative" >
+       <input
+       type="name"
+       placeholder="Add a category here.."
+       formControlName="name"
+       class="{{(form.controls['name'].errors?.['required'] && (form.controls['name'].dirty || form.controls['name'].touched)) ? 'border-[#FF0000]': 'border-[#1D1D1B66]'}} py-3 w-full px-2 border rounded-[10px] h-[51px] outline-none font-inter-light text-[14px]">
+       <button (click)="save()"  class="font-nunito-medium text-white bg-[#3742f4] text-primary flex absolute right-1 top-1 bottom-1 justify-center text-[12px] items-center font-inter-regular rounded-lg px-5 py-2">
+         <ng-container *ngIf="!loading;else loading_">
+           Save
+         </ng-container>
+         <ng-template #loading_>
+           <div class="spinner_ mr-3"></div>
+         </ng-template>
+        </button>
+  </div>
+</form>

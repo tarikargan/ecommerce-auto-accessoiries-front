@@ -1,0 +1,97 @@
+<div class="bg-[#F9F7F7] rounded-l-[20px] w-full h-screen p-6">
+  <div class="px-6 pb-6">
+    <h3 class="font-play-bold text-titleColor text-[15px]">{{eventype == 'add' ? 'Create Category': 'Category Edit'}}</h3>
+  </div>
+  <div class="w-full flex gap-4">
+    <div class=" rounded-[16px] xl:w-[30%] lg:w-[40%] ">
+      <div class="bg-white rounded-[16px] w-full p-5">
+        <div class="w-full rounded-[16px] aspect-[16/9] bg-gray-700 overflow-hidden">
+          <img src="{{environment?.Upload?.apiUrl + selectedCat?.photo?.url}}" *ngIf="selectedCat?.photo != null; else noImg" class="h-full w-full object-cover rounded-md" alt="">
+          <ng-template #noImg>
+            <img src="assets/images/svg/upload.svg" class="h-full w-full object-cover rounded-md" alt="">
+          </ng-template>
+        </div>
+        <h3 class="font-nunito-semiBold text-[14px] text-[#313B5E] mt-2 flex items-center gap-3">
+          <svg class="relative w-6 h-6 text-blue-500 stroke-blue-500" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 15.998v-6c0-2.828 0-4.242-.879-5.121C19.353 4.109 18.175 4.012 16 4H8c-2.175.012-3.353.109-4.121.877C3 5.756 3 7.17 3 9.998v6c0 2.829 0 4.243.879 5.122c.878.878 2.293.878 5.121.878h6c2.828 0 4.243 0 5.121-.878c.879-.88.879-2.293.879-5.122" opacity=".5"></path><path fill="currentColor" d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5z"></path><path fill="currentColor" fill-rule="evenodd" d="M6.25 10.5A.75.75 0 0 1 7 9.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75M6.25 14a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75m-3.5 3.5a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"></path></svg>
+           <span>
+             {{selectedCat != null ? selectedCat?.name : 'Category Title'}}
+           </span>
+        </h3>
+        <h3 class="font-nunito-semiBold text-[14px] text-[#313B5E] mt-2 flex items-center gap-3 pl-5 capitalize">
+          <img src="assets/images/svg/sub.svg" class="w-[10px] relative -mt-2" alt="">
+          <!-- <svg class="relative w-6 h-6 text-blue-500 stroke-blue-500" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 15.998v-6c0-2.828 0-4.242-.879-5.121C19.353 4.109 18.175 4.012 16 4H8c-2.175.012-3.353.109-4.121.877C3 5.756 3 7.17 3 9.998v6c0 2.829 0 4.243.879 5.122c.878.878 2.293.878 5.121.878h6c2.828 0 4.243 0 5.121-.878c.879-.88.879-2.293.879-5.122" opacity=".5"></path><path fill="currentColor" d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5z"></path><path fill="currentColor" fill-rule="evenodd" d="M6.25 10.5A.75.75 0 0 1 7 9.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75M6.25 14a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75m-3.5 3.5a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75" clip-rule="evenodd"></path></svg> -->
+           <span>
+             {{form.get('name')?.value != '' ? form.get('name')?.value : 'sub Category Title'}}
+           </span>
+        </h3>
+        <hr class="my-3">
+        <div class="grid grid-cols-2 gap-1 mt-3">
+          <button *ngIf="eventype == 'add'" class="font-play-regular text-[14px] h-[42px] w-full rounded-[9px] border border-[#313B5E] px-2" (click)="save()">
+
+            <ng-container *ngIf="!loading; else loading_">
+                <ng-container >
+                  Save
+                </ng-container>
+            </ng-container>
+            <ng-template #loading_>
+              <div class="spinner_ mr-3"></div>
+            </ng-template>
+          </button>
+
+          <button *ngIf="eventype == 'edit'"  class="font-play-regular text-[14px] h-[42px] w-full rounded-[9px] border border-[#313B5E] px-2" (click)="update()">
+            <ng-container *ngIf="!loading; else loading_">
+
+                <ng-container>
+                  Update
+                </ng-container>
+            </ng-container>
+            <ng-template #loading_>
+              <div class="spinner_ mr-3"></div>
+            </ng-template>
+          </button>
+
+          <button class="font-play-regular text-[14px] h-[42px] w-full rounded-[9px] bg-orange-500 text-white px-2" (click)="hideForm_()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class=" relative  grow flex flex-col pb-5 h-[calc(100vh-70px)]">
+
+      <div class="w-full bg-white  rounded-[16px] grow">
+        <header class="border-b px-5 py-3">
+          <h3 class="text-gray-600 font-nunito-semiBold">General Information</h3>
+        </header>
+        <form [formGroup]="myForm" class="w-full relative p-5" >
+            <div class="mt-2 relative">
+              <label class="text-[14px] font-play-regular text-gray-600 mb-1 inline-block" for="">Category</label>
+              <div class="select_coll relative w-full h-[40px]">
+                <ng-select (change)="handleChange($event)" [notFoundText]="'No items found'" appearance="outline" [items]="Categories" formControlName="category_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+                  <ng-template ng-label-tmp let-item="item" >
+                    <div class="flex gap-2 items-center">
+                      <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                    </div>
+                  </ng-template>
+                </ng-select>
+              </div>
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['category_id'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['category_id'].errors?.['required'] && (form.controls['category_id'].dirty || form.controls['category_id'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="mt-4 relative">
+              <label class="text-[14px] font-play-regular text-gray-600 mb-1 inline-block" for="">sub-Category Title</label>
+              <input formControlName="name"  class="block w-full h-[42px] p-3 border-[1px] rounded-[10px] border-inputBorder outline-none text-[16px] text-gray-600 font-nunito-regular" />
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['name'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['name'].errors?.['required'] && (form.controls['name'].dirty || form.controls['name'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+
+  </div>
+
+
+</div>

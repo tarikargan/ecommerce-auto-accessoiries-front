@@ -1,0 +1,188 @@
+import { Injectable } from '@angular/core';
+import { Observable, throwError, catchError } from 'rxjs';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HandleErrorService } from '../handleError.service';
+import { GLOBAL } from '../global';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProduitService {
+
+  private url:string;
+  constructor(
+    private http: HttpClient,
+    private _handleErrorsService: HandleErrorService
+  ){
+    this.url = GLOBAL.url;
+  }
+
+
+
+  getAll(){
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.url}/api/products`,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  getPublishedProducts(){
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.url}/api/published/products`,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // get facteurs by emission
+  getBypaginate(url:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.get(`${url}`,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // get facteurs by emission
+  search(data:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.post(`${this.url}/api/search/products`,data,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // get facteurs by emission
+  get(id:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.get(`${this.url}/api/products/${id}`,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // create facteur
+  create():Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.get(`${this.url}/api/create/product`,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // create facteur
+  add(data:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.post(`${this.url}/api/products`,data,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // update facteur
+  update(id:any,data:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.patch(`${this.url}/api/products/${id}`,data,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // update facteur
+  toggleSatus(id:any,data:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.patch(`${this.url}/api/toggle-status/products/${id}`,data,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+  // update facteur
+  toggleDisplayHome(id:any,data:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.patch(`${this.url}/api/toggle-display-home/products/${id}`,data,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // update facteur
+  updateSaison(data:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.post(`${this.url}/api/update-saison/product`,data,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+  // update facteur
+  delete(id:any):Observable<any>{
+    const token: any = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    });
+
+     return this.http.delete(`${this.url}/api/products/${id}`,{headers: headers}).pipe(
+      catchError((error) => this._handleErrorsService.handleError(error))
+    );
+  }
+
+
+}

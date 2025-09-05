@@ -1,0 +1,31 @@
+<svg id="Groupe_756" data-name="Groupe 756" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46.492" height="42.801" viewBox="0 0 46.492 42.801">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f4faff"/>
+      <stop offset="1" stop-color="#d5eafe"/>
+    </linearGradient>
+    <clipPath id="clip-path">
+      <path id="Tracé_862" data-name="Tracé 862" d="M9.416,0H36.809a9.416,9.416,0,0,1,9.416,9.416V33.385A9.416,9.416,0,0,1,36.809,42.8H9.416A9.416,9.416,0,0,1,0,33.385V9.416A9.416,9.416,0,0,1,9.416,0Z" fill="url(#linear-gradient)"/>
+    </clipPath>
+    <linearGradient id="linear-gradient-3" x1="0.182" y1="0.163" x2="0.704" y2="0.344" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2793f7"/>
+      <stop offset="1" stop-color="#1477fb"/>
+    </linearGradient>
+    <filter id="Tracé_860" x="-11.988" y="0.306" width="86.112" height="85.219" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5.5" result="blur"/>
+      <feFlood flood-color="#248ff7" flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-5" x1="0.5" y1="0" x2="0.5" y2="1" xlink:href="#linear-gradient-3"/>
+  </defs>
+  <rect id="Rectangle_322" data-name="Rectangle 322" width="46.492" height="42.618" rx="11" transform="translate(0 0.092)" fill="url(#linear-gradient)"/>
+  <g id="Groupe_de_masques_18" data-name="Groupe de masques 18" transform="translate(0.133)" clip-path="url(#clip-path)">
+    <path id="Tracé_861" data-name="Tracé 861" d="M3.175,0H29.306a3.269,3.269,0,0,1,3.175,3.356v21.46a3.269,3.269,0,0,1-3.175,3.356H3.175A3.269,3.269,0,0,1,0,24.816V3.356A3.269,3.269,0,0,1,3.175,0Z" transform="translate(7.615 24.854) rotate(40)" opacity="0.272" fill="url(#linear-gradient-3)"/>
+    <g transform="matrix(1, 0, 0, 1, -0.13, 0)" filter="url(#Tracé_860)">
+      <path id="Tracé_860-2" data-name="Tracé 860" d="M3.221,0H37.783A3.235,3.235,0,0,1,41,3.248V30.513a3.235,3.235,0,0,1-3.221,3.248H3.221A3.235,3.235,0,0,1,0,30.513V3.248A3.235,3.235,0,0,1,3.221,0Z" transform="translate(26.21 16.81) rotate(40)" fill="url(#linear-gradient-3)"/>
+    </g>
+    <circle id="Ellipse_226" data-name="Ellipse 226" cx="3.39" cy="3.39" r="3.39" transform="translate(7.615 8.809)" fill="url(#linear-gradient-5)"/>
+  </g>
+</svg>

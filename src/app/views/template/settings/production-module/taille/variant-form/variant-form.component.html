@@ -1,0 +1,51 @@
+<div class="bg-[#F9F7F7] rounded-l-[20px] w-full h-screen p-6">
+  <div class="px-6 pb-6">
+    <h3 class="font-play-bold text-titleColor text-[15px]">{{eventype == 'add' ? 'Create Category': 'Category Edit'}}</h3>
+  </div>
+  <div class="w-full flex gap-4">
+    <div class=" relative  grow flex flex-col pb-5">
+
+      <div class="w-full bg-white  rounded-[16px] grow">
+        <header class="border-b px-5 py-3">
+          <h3 class="text-gray-600 font-nunito-semiBold">{{eventype == 'add' ? 'Add Attribute': 'Edit Attribute'}}</h3>
+        </header>
+        <form [formGroup]="myForm" class="w-full relative p-5" >
+            <div class="mt-2 relative">
+              <label class="text-[14px] font-play-regular text-gray-600 mb-1 inline-block" for="">Category</label>
+              <div class="select_coll relative w-full h-[40px]">
+                <ng-select  [notFoundText]="'No items found'" appearance="outline" [items]="variants" formControlName="variant" bindValue="id" bindLabel="name" [clearable]="false"  >
+                  <ng-template ng-label-tmp let-item="item" >
+                    <div class="flex gap-2 items-center">
+                      <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                    </div>
+                  </ng-template>
+                </ng-select>
+              </div>
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['variant'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['variant'].errors?.['required'] && (form.controls['variant'].dirty || form.controls['variant'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+            <div class="mt-4 relative">
+              <label class="text-[14px] font-play-regular text-gray-600 mb-1 inline-block" for="">sub-Category Title</label>
+              <input formControlName="name"  class="block w-full h-[42px] p-3 border-[1px] rounded-[10px] border-inputBorder outline-none text-[16px] text-gray-600 font-nunito-regular" />
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['name'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['name'].errors?.['required'] && (form.controls['name'].dirty || form.controls['name'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+        </form>
+        <div class="border-t  flex px-5 py-4 gap-2 w-full relative">
+           <button *ngIf="eventype == 'add'" (click)="save()" class="h-[42px] rounded-[9px] px-12 text-[14px] bg-saveBg font-play-regular text-white">Save</button>
+           <button *ngIf="eventype != 'add'" (click)="update()" class="h-[42px] rounded-[9px] px-12 text-[14px] bg-updateBg font-play-regular text-white">Update</button>
+           <button (click)="cancel()" class="h-[42px] rounded-[9px] px-12 text-[14px] font-play-regular text-textColor border border-textColor">cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

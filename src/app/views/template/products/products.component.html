@@ -1,0 +1,269 @@
+
+
+  <!-- manager -->
+  <div class="w-full relative">
+    <!-- <div class="justify-between sm:flex">
+      <div>
+        <button (click)="addMatierepre()" class="inline-block px-5 py-2.5 mb-4 text-sm font-bold leading-normal text-center text-white align-middle transition-all ease-in border-solid border border-white/75 rounded-lg shadow-md cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs bg-white/10 hover:bg-transparent tracking-tight-rem bg-150 bg-x-25">Ajouter</button>
+      </div>
+      <div class="flex" >
+        <button data-type="csv" type="button" export-button-list=""
+          class="inline-block px-5 py-2.5 mb-4 ml-2 text-sm font-bold leading-normal text-center align-middle transition-all ease-in bg-white/10 border border-solid border-white/75 rounded-lg shadow-none cursor-pointer hover:-translate-y-px tracking-tight-rem active:opacity-85 active:shadow-xs text-white hover:bg-transparent hover:opacity-75">
+          <span>
+            <i class="leading-none ni ni-archive-2"></i>
+          </span>
+          <span>Export CSV</span>
+        </button>
+      </div>
+    </div> -->
+  <section class="w-full bg-white relative rounded-[16px] pt-6 grow overflow-y-auto flex flex-col " style="min-height: calc(100vh - 180px) ;">
+    <div class="grow overflow-y-auto scrollbar_ relative flex flex-col" *ngIf="!loading">
+      <ng-container *ngIf="products.length > 0; else noResult">
+        <div class="dataTable-top mb-5 flex justify-between items-center px-6">
+          <!-- left area -->
+          <h1 class="text-gray-600 font-nunito-bold">All Product List</h1>
+
+          <div class="justify-end flex items-center gap-1">
+
+
+            <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
+              <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+                <svg class="w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                </svg>
+              </span>
+              <input type="text" (keyup)="handleSearch($event)" class="pl-9 w-[280px] h-[32px] text-[12px] font-play-regular rounded-[0.5rem] border border-solid border-slate-700/30 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
+            </div>
+            <button data-type="csv" type="button" export-button-list=""
+              class="h-[32px] text-[12px] font-play-regular rounded-[0.5rem] bg-[#454ede] text-white px-[16px] ">
+              <span class="whitespace-nowrap">Export CSV</span>
+            </button>
+            <!-- </div> -->
+            <!-- <div> -->
+              <button (click)="addMatierepre()" class="px-[16px] h-[32px] text-[12px] font-play-regular rounded-[0.5rem] flex items-center gap-2  bg-[#3742f4] text-white ">
+                <span class="whitespace-nowrap">Create Product</span>
+              </button>
+            <!-- </div> -->
+          </div>
+        </div>
+        <div class="relative w-full grow overflow-y-auto scrollbar_ pr-1 ">
+          <table class="w-full table-auto rounded-t-md ">
+            <thead>
+              <tr class="rounded-md  uppercase text-sm leading-normal border-b border-t border-gray-200">
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase ">produit</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Ref</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Prix</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Prix en solde</th>
+                <th class="p-3 text-center text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Quantite</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Categorie</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Fournisseur</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Saison</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">statut</th>
+                <th class="p-3 w-[50px] text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase"></th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+              <tr *ngFor="let item of products;let i = index" class=" hover:bg-gray-light  border-b border-gray-200">
+                <td class="p-3 ">
+                  <div class="flex items-center gap-2">
+                    <ng-container *ngIf="item?.photos.length > 0;else noImg">
+                      <span class="w-[56px] min-w-[56px] aspect-square rounded-md bg-gray-100 relative flex justify-center items-center">
+                        <img [src]="environment?.Upload?.apiUrl + item?.photos[0]?.file?.url" class="h-full w-full object-contain rounded-md" alt="">
+                      </span>
+                    </ng-container>
+
+                    <ng-template #noImg>
+                      <span class="w-[56px] min-w-[56px] aspect-square rounded-md bg-gray-100 relative flex justify-center items-center">
+                        <img src="assets/images/svg/upload.svg" class="h-full w-full object-cover rounded-md" alt="">
+                      </span>
+                    </ng-template>
+                    <div>
+                      <p class="text-[15px] font-play-regular text-left text-titleColor max-w-[150px] truncate">{{ item?.title }}</p>
+                      <div *ngIf="getSizes(item).length > 0" class="flex flex-wrap gap-2">
+                        <span class="font-play-bold text-gray-600 text-[14px]">Size: </span> <span class="font-play-regular text-[14px] uppercase text-gray-500" *ngFor="let sz of getSizes(item)">{{sz}}</span>
+
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.ref}}</p>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.price}}.00 Dh</p>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.sale_price}}.00 Dh</p>
+                </td>
+                <td class="p-3 ">
+                  <div class="flex justify-center gap-2 items-center">
+                    <div>
+                      <p class="{{ calcQuantity(item?.quantite_taille).quantite == 0 || calcQuantity(item?.quantite_taille).quantite?.left == 0  ? 'line-through text-red-400': 'text-[#313b5e]' }} text-[14px] font-play-regular ">{{ calcQuantity(item?.quantite_taille).quantite }} Item Left</p>
+                      <p *ngIf="calcQuantity(item?.quantite_taille).quantite > 0" class="text-[14px] font-play-regular text-[#5d7186]">{{ calcQuantity(item?.quantite_taille).sold }} Sold</p>
+                      <!-- <p *ngIf="calcQuantity(item?.quantite_taille).quantite > 0" class="text-[14px] font-play-regular text-[#5d7186]">{{ calcQuantity(item?.quantite_taille).sold }} Sold</p> -->
+                      <a href="/admin/products/{{ item?.id }}/quantite-taille" class="relative flex items-center gap-1 font-play-bold text-[13px] text-blue-900 whitespace-nowrap">
+                        <svg class="w-[14px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                        see more
+                        <!-- <svg *ngIf="calcQuantity(item?.quantite_taille)?.quantite > 0" class="w-[14px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> -->
+                      </a>
+                    </div>
+                    <!-- <div  class="text-[16px] w-[100px] rounded-lg p-2 cursor-pointer flex justify-between items-center bg-gray-50 {{ getStyle(item?.quantite_taille) }}">
+                      <span>{{ calcQuantity(item?.quantite_taille) }}</span>
+                      <a href="/admin/products/{{ item?.id }}/quantite-taille" class="relative hover:bg-orange-100/100 inline-block p-1 rounded-md bg-orange-100/50 text-orange-500">
+                        <svg *ngIf="calcQuantity(item?.quantite_taille) == 0" class="w-[14px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                        <svg *ngIf="calcQuantity(item?.quantite_taille) > 0" class="w-[14px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                      </a>
+                    </div> -->
+                  </div>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.category?.name}}</p>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.fournisseur?.title}}</p>
+                </td>
+                <td class="p-3 ">
+                  <p *ngIf=" item?.saison !== null" (click)="editProductSaison(item?.id, item?.saison, i)" class="cursor-pointer text-[14px] font-nunito-medium text-left text-gray-600">
+                    {{ item?.saison?.title }}
+                  </p>
+                  <span *ngIf=" item?.saison == null" (click)="editProductSaison(item?.id, item?.saison, i)"
+                    class="bg-indigo-500 hover:bg-indigo-600  text-white inline-block px-2 py-1 rounded-md cursor-pointer">
+                    <svg fill="none" class="w-4" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+                    </svg>
+                  </span>
+                </td>
+                <td class="p-3 ">
+                  <!-- {{ item?.status }} -->
+                  <input type="checkbox" class="checked-publish checkbox" id="checked-publish" [checked]="item?.status" name="" id="" (change)="handleChangeStatus($event, item?.id)">
+                  <span class="text-[12px] font-nunito-regular text-red-500 opacity-80 mt-2" *ngIf="calcQuantity(item?.quantite_taille)?.left == 0">en rupture de stock</span>
+                </td>
+
+                <td class="p-3">
+                  <div class="text-left flex justify-end">
+                    <div (click)="toggeDropDown(item.id)"
+                      class=" relative z-20 aspect-square h-[30px] rounded-full cursor-pointer p-1 mr-2 {{ activeDropDown == item.id ? 'bg-red-50 text-red-500':'text-green_color hover:bg-green-50' }}">
+                      <svg *ngIf="activeDropDown !== item.id" class="w-6 h-6" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z">
+                        </path>
+                      </svg>
+                      <svg *ngIf="activeDropDown == item.id" class="w-6 h-6" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                      </svg>
+                      <ul *ngIf="activeDropDown == item.id"
+                        class="absolute right-full top-0 divide-y bg-white rounded-medium border z-50">
+                        <li>
+                          <button (click)="displayDetails(item.id)" class="flex items-center gap-2 py-3 px-5 text-gray-700">
+                            <svg class="w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z">
+                              </path>
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z">
+                              </path>
+                            </svg>
+                            details
+                          </button>
+                        </li>
+                        <li>
+                          <button (click)="editProduct(item, i)" class="flex items-center gap-2 py-3 px-5 text-gray-700">
+                            <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                              </path>
+                            </svg>
+                            Modifier
+                          </button>
+                        </li>
+                        <li>
+                          <button (click)="duplicate(item, i)" class="flex items-center gap-2 py-3 px-5 text-gray-700">
+                            <svg class="w-5" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"></path>
+                            </svg>
+                            Dupliquer
+                          </button>
+                        </li>
+                        <li>
+                          <button (click)="deleteProduct(item.id)" class="flex items-center gap-2 py-3 px-5">
+                            <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                              </path>
+                            </svg>
+                            Supprimer
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- pagination -->
+          <div class="flex justify-end px-5 py-5">
+            <div class="flex items-center justify-center  border rounded-[8px] divide-x-[1px]" *ngIf="meta?.links.length > 3">
+              <ng-container *ngFor="let item of meta?.links; let i = index">
+                <button *ngIf="i == 0 " (click)="handlePagination(item?.url)" class="h-[35px] px-3 font-nunito-medium text-[13px]  flex justify-center items-center {{ item?.active ? 'text-white bg-blue-500':' text-gray-500 bg-gray-100'}}  {{ item?.url == null ? 'opacity-40 pointer-events-none':'' }}">
+                  <!-- <svg class="w-4" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5"></path>
+                  </svg> -->
+                  Previous
+                </button>
+                <button *ngIf="i !== 0 && i !== (meta?.links.length - 1)" (click)="handlePagination(item?.url)" [innerHTML]="item?.label" class="w-[35px] aspect-square  flex justify-center items-center {{ item?.active ? 'text-white bg-gratext-gray-500':' text-gray-500 bg-gray-100'}}"></button>
+                <button *ngIf="i == (meta?.links.length - 1)"(click)="handlePagination(item?.url)" class="h-[35px] px-3  font-nunito-medium text-[13px]   flex justify-center items-center {{ item?.active ? 'text-white bg-gratext-gray-500':' text-blue-500 bg-gray-100'}} {{ item?.url == null ? 'opacity-40 pointer-events-none':'' }}">
+                  <!-- <svg class="w-4" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5"></path>
+                  </svg> -->
+                  Next
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+    </div>
+    <!-- <section *ngIf="activeQuTailleArea">
+          <app-product-quantitetaille (closeForm)="closeQuTaille()" [productID]="quantiteTailleId"></app-product-quantitetaille>
+        </section> -->
+    <!-- no result -->
+    <ng-template #noResult>
+      <div class="w-full flex justify-center items-center grow pr-1 ">
+        <div class="p-6 flex flex-col items-center">
+          <!-- <img src="assets/images/Noitemfound.svg" class="scale-70" alt=""> -->
+           <svg class="scale-125" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 256 256" enable-background="new 0 0 256 256" xml:space="preserve"><metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata><g><g><path fill="#000000" d="M129.7,200.2c-24.1,0-48.2,0-72.3,0c-6.1,0-6.2-0.2-6.2-6.4c0-17.2-0.1-34.4,0.1-51.5c0-2.8,0.6-5.8,1.7-8.3c7.6-17.3,15.5-34.5,23.1-51.8c1.4-3.3,3.3-4.5,6.9-4.4c31.8,0.1,63.5,0.1,95.3,0c3.6,0,5.4,1.4,6.7,4.6c7.2,17.3,14.5,34.6,21.7,51.9c0.9,2.2,1.5,4.7,1.5,7.1c0.1,17.7,0.1,35.5,0.1,53.3c0,5.2-0.4,5.6-5.8,5.6C178.2,200.2,154,200.2,129.7,200.2z M129.6,197.4c23.7,0,47.3,0,71,0c3.3,0,5-0.7,4.9-4.5c-0.2-16-0.1-32.1,0-48.1c0-3.4-1.1-4.6-4.5-4.5c-11.1,0.1-22.2,0.3-33.3-0.1c-4.7-0.1-6.4,1.3-7.2,5.9c-2.8,16.4-18.8,27.4-35.1,24.7c-13.4-2.2-23.4-11.8-25.6-25.3c-0.7-4.1-2.2-5.4-6.4-5.3c-11.4,0.3-22.8,0.2-34.2,0c-3.9-0.1-5.2,1.2-5.2,5.2c0.2,15.4,0.2,30.9,0,46.3c-0.1,4.3,1.1,5.7,5.6,5.7C82.8,197.3,106.2,197.4,129.6,197.4z M75.5,137.6c7.7,0,14,0.2,20.3-0.1c4.2-0.2,5.8,1.1,6,5.6c0.6,14.3,13.4,25.6,28.2,25.7c15.1,0,27.9-11.3,28.5-25.8c0.2-4.6,2-5.6,6.1-5.5c6.3,0.2,12.6,0,19.9,0c-2.1-6.7-3.8-12.4-5.9-18.1c-0.3-0.9-2.3-1.6-3.5-1.6c-29.9-0.1-59.7-0.1-89.6,0c-1.3,0-3.4,0.9-3.8,1.9C79.6,125.3,77.8,131,75.5,137.6z M130,115.1c14.7,0,29.5,0,44.2,0c3,0,4.5-0.8,4.4-4.1c-0.2-8.8-0.1-17.6,0-26.4c0-3.1-1.2-4-4.1-4c-29.6,0.1-59.2,0.1-88.8,0c-3.1,0-4,1.2-4,4.1c0.1,8.5,0.2,17,0,25.6c-0.1,3.9,1.3,4.9,5,4.9C101.1,115,115.6,115.1,130,115.1z M205.5,137.6c-7.8-18.7-15.3-36.5-22.8-54.2c-0.4,0.1-0.7,0.1-1.1,0.2c-0.1,1.4-0.2,2.7-0.2,4.1c0,6.3,0.4,12.7-0.1,19c-0.7,9.4,1.4,18.3,4.5,27c0.5,1.5,2.1,3.6,3.3,3.7C194.1,137.8,199.1,137.6,205.5,137.6z M53.9,137.6c5.9,0,10.5-0.2,15.1,0.1c3.2,0.2,4.6-1.3,5.5-4.1c3-8.9,5.2-17.9,4.5-27.5c-0.4-5.6,0-11.2-0.1-16.9c0-1.2-0.2-2.4-0.4-3.6c-0.4-0.1-0.8-0.2-1.2-0.3C69.7,102.5,62,119.5,53.9,137.6z"/><path fill="#000000" d="M140.5,218.4c7.1,0.6,13.8,1.6,20.5,1.4c4.3-0.1,8.7-1.6,12.8-3.3c2.7-1.1,3.8-0.9,5.5,1.5c3,4.4,6.2,8.7,9.9,12.5c5.8,5.8,13.1,8.7,21.6,8.9c-7.3,3.8-15.1,6-23.3,6.6c-1.6,0.1-3.8-1.5-4.9-2.9c-1.8-2.4-3.7-2.6-6.4-2c-3.1,0.7-6.2,1.3-9.3,1.6c-1.6,0.1-3.4-0.5-4.9-1.3C152.2,236.3,145.6,228.1,140.5,218.4z M200.2,241.4c-0.9-1.2-1.2-1.6-1.5-1.8c-9.1-3.9-15.6-10.6-21-18.7c-0.6-0.9-3-1.6-4.1-1.2c-7.2,2.8-14.4,3.9-22,2.5c-1.8-0.3-3.6-0.3-5.7-0.5c5.9,10.6,15.4,22.1,30.4,17c3.2-1.1,5.4-0.3,7.6,2.2c1.2,1.3,3.6,2.4,5.4,2.3C192.8,243.1,196.2,242.1,200.2,241.4z"/><path fill="#000000" d="M226.8,10c5.7,16.7,5.5,41.5-18.5,49.2c0-0.4-0.1-0.9,0-1.1c7.3-9.7,9.4-20.9,9.1-32.6c-0.1-3.1,0.5-5.3,3-7.5C222.8,15.9,224.5,13,226.8,10z M214.8,52.4c11.3-2.8,15.4-26.1,10.1-35.9c-1.9,2.7-4.9,5-5,7.5C219.7,33.5,218.8,42.9,214.8,52.4z"/><path fill="#000000" d="M44.8,98.3c-0.9,2.6-2,5.5-3,8.4c-7.5-1.5-13.1-7.5-15.7-17c3,2.2,5.4,4.8,8.5,6.2C37.7,97.3,41.2,97.5,44.8,98.3z"/><path fill="#000000" d="M180.8,46.1c3,5.5,1.4,13.3-3.9,19.3c-0.3-2.1-1.1-3.8-0.7-5.1c0.7-2.3,2.2-4.4,2.9-6.7C179.9,51.4,180.2,49.1,180.8,46.1z"/></g></g></svg>
+          <h3 class="text-[14px] font-nunito-medium text-gray-500 mt-10">No Products</h3>
+          <button (click)="addMatierepre()" class="px-[16px] h-[32px] text-[12px] font-play-regular rounded-[0.5rem] flex items-center gap-2  bg-[#3742f4] text-white mt-2">
+              <span class="whitespace-nowrap">Create a New Product</span>
+            </button>
+        </div>
+      </div>
+    </ng-template>
+    <!-- loading  -->
+    <ng-container *ngIf="loading">
+      <div class="w-full  flex justify-center items-center grow  pr-1 ">
+        <app-content-loading></app-content-loading>
+      </div>
+    </ng-container>
+  </section>
+</div>
+<div *ngIf="showForm" class="w-full h-screen fixed bg-black/40  left-0 top-0 flex justify-end items-start z-[99999]">
+  <app-product-form [product]="editProduct_" [eventype]="eventType" (updatedproduct)="updatedProduct($event)"
+    (addedproduct)="addedProduct($event)" (closeForm)="closeForm()"
+    class="w-[80%] max-w-[800px]"></app-product-form>
+</div>
+
+<div *ngIf="displaySaisonPopup"
+  class="w-full h-screen fixed bg-black/40  left-0 top-0 flex justify-center items-center z-[99999]">
+  <app-product-saison [productId]="editProductSaisonId" [saison]="oldSaison" (updatedSaison)="updatedSaison($event)" (closeForm)="hideSaisonPopup()"
+    class="w-[90%] max-w-[500px]"></app-product-saison>
+</div>

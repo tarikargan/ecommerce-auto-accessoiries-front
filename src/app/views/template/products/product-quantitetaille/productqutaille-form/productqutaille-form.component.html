@@ -1,0 +1,254 @@
+<div  class="w-full h-screen p-10 bg-white rounded-l-[20px] relative flex flex-col">
+
+  <header class="relative w-full ">
+    <div class="w-full relative flex justify-between items-center mb-5">
+      <h1 class="text-[18px] font-nunito-bold">{{ eventype == 'add' ? 'Ajouter une quantité par taille':'Modification de la quantité par taille' }}</h1>
+      <button (click)="closePopup()" class="outline-none border-none bg-transparent">
+        <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+
+    <div *ngIf="messge" class="w-full p-5 rounded-md bg-green-50 text-green-400 text-[14px]">
+          {{ messge }}
+    </div>
+  </header>
+  <hr>
+  <!--  -->
+  <div class="grow w-full overflow-y-auto">
+    <form [formGroup]="productionForm" class="w-full relative mt-6" >
+        <div class="grid grid-cols-2 gap-1 mt-[28px]">
+          <div class=" relative">
+            <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Quantite</label>
+
+            <input type="number" formControlName="quantite" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+            <div class="text-[13px] relative text-red-500" *ngIf="form.controls['quantite'].invalid">
+              <ng-container>
+                  <div class="text-left mt-1" *ngIf="form.controls['quantite'].errors?.['required'] && (form.controls['quantite'].dirty || form.controls['quantite'].touched)">This field is required</div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="relative">
+            <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">quantite livre</label>
+
+            <input type="number" formControlName="quantite_livre" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+            <div class="text-[13px] relative text-red-500" *ngIf="form.controls['quantite_livre'].invalid">
+              <ng-container>
+                  <div class="text-left mt-1" *ngIf="form.controls['quantite_livre'].errors?.['required'] && (form.controls['quantite_livre'].dirty || form.controls['quantite_livre'].touched)">This field is required</div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="flex flex-col relative mt-[24px]">
+          <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Taille</label>
+          <div class="select_coll relative w-full h-[45px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="tailles" formControlName="taille_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+
+        <div class="flex flex-col relative mt-[24px]">
+          <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Stock</label>
+          <div class="select_coll relative w-full h-[45px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="stocks" formControlName="stock_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+        <!-- price  -->
+        <div class="grid grid-cols-2 gap-1">
+          <div class="flex flex-col relative mt-[24px]">
+            <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Prix</label>
+            <div class="select_coll relative w-full h-[45px]">
+              <input type="number" formControlName="price" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+            </div>
+          </div>
+          <!--  -->
+          <div class="flex flex-col relative mt-[24px]">
+            <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Prix de vente</label>
+            <div class="select_coll relative w-full h-[45px]">
+              <input type="number" formControlName="sale_price" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 mt-6 relative">
+          <h2 class="font-nunito-semiBold text-gray-700">Color</h2>
+          <hr class="grow">
+        </div>
+        <div class="pl-3">
+          <div class="relative">
+            <div>
+              <label class="relative  bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Sélectionner Couleur</label>
+            </div>
+
+           <div>
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [searchable]="false" [clearable]="false" labelForId="heroId" formControlName="color_name">
+              <ng-option *ngFor="let item of colors" [value]="item">
+                <div class="flex items-center gap-2 py-2">
+                  <div class="h-6 aspect-square rounded-[6px] cursor-pointer border" [ngStyle]="{'background-color': item}">
+
+                  </div>
+                  <span class="text-[14px] font-nunito-medium text-blue-900">
+                    {{ item }}
+                  </span>
+                </div>
+              </ng-option>
+            </ng-select>
+           </div >
+            <div *ngIf="!other" class="flex flex-wrap gap-4 mt-6">
+              <label for="color1" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-gray-100 bg-white-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#FFFFFF'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color1" value="#FFFFFF" />
+              </label>
+              <label for="color2" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-yellow-100 bg-yellow-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#facc15'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color2" value="#facc15" />
+              </label>
+              <label for="color3" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-orange-100 bg-orange-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#f97316'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color3" value="#f97316" />
+              </label>
+              <label for="color4" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-red-100 bg-red-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#FF0000'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color4" value="#FF0000" />
+              </label>
+              <label for="color5" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-blue-100 bg-blue-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#3b82f6'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color5" value="#3b82f6" />
+              </label>
+              <label for="color6" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-teal-100 bg-teal-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#14b8a6'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color6" value="#14b8a6" />
+              </label>
+              <label for="color7" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-green-100 bg-green-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#22c55e'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color7" value="#22c55e" />
+              </label>
+              <label for="color8" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-gray-100 bg-black border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#000000'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color8" value="#000000" />
+              </label>
+              <label for="color9" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-violet-100 bg-violet-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#8b5cf6'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color9" value="#8b5cf6" />
+              </label>
+              <label for="color10" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-pink-100 bg-pink-500 border-2 hover:border-blue-300 color_item" [ngClass]="{'active': form.controls['color'].value == '#ec4899'}">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color10" value="#ec4899" />
+              </label>
+              <label for="without" class="h-6 aspect-square rounded-full outline outline-offset-[2px] cursor-pointer outline-gray-100 bg-white color_item  relative flex items-center overflow-hidden" [ngClass]="{'active': form.controls['color'].value == 'without'}">
+              <div class="w-full h-[4px] bg-red-500"></div>
+                <input type="radio" name="color" class="hidden" formControlName="color" id="without" value="without" />
+              </label>
+            </div>
+            <div class="flex items-center gap-2 my-2">
+              <input type="checkbox" [checked]="other" (change)="handleChangeOther($event)" id="">
+              <span class="font-nunito-regular text-gray-500 text-md">Autre</span>
+            </div>
+            <div *ngIf="other">
+              <div class="relative right-0">
+                <ul class="relative flex flex-wrap p-1 list-none bg-gray-100 rounded-xl" nav-pills="" role="tablist">
+                  <li class="z-30 flex-auto text-center">
+                    <button (click)="handleToggleActiveOption('color')" class="{{ activeOption == 'color' ? 'bg-gray-900 text-white':'' }} z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-all ease-in-out border-0 rounded-lg  text-slate-700"
+                      nav-link="" href="javascript:;" role="tab" aria-selected="false">
+                      <i class="ni ni-email-83"></i>
+                      <span class="ml-2">Color</span>
+                    </button>
+                  </li>
+                  <li class="z-30 flex-auto text-center">
+                    <button (click)="handleToggleActiveOption('image')" class="{{ activeOption == 'image' ? 'bg-gray-900 text-white':'' }} z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-colors ease-in-out border-0 rounded-lg  text-slate-700"
+                      nav-link="" href="javascript:;" role="tab" aria-selected="false">
+                      <i class="ni ni-settings-gear-65"></i>
+                      <span class="ml-2">Image</span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <!-- <input type="text" placeholder="Color" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" formControlName="color"> -->
+              <ng-container *ngIf="activeOption == 'color';else img">
+                <div class="flex flex-col mt-5 ">
+                  <label class=" bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]" for="">Pick color</label>
+                  <input [(colorPicker)]="selectedColor" (cpSliderChange)="handlePickColor()" [style.background]="selectedColor" class="h-20 aspect-square rounded-[16px] bg-black border-2 hover:border-blue-300 color_item"  />
+                </div>
+              </ng-container>
+              <ng-template #img>
+                <div class="flex flex-col mt-5 ">
+                  <label class=" bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99]">Pick color</label>
+                  <div class="grow w-full h-full">
+                    <app-file-upload
+                    (filesChange)="readFileCover($event)"
+                    class=" "
+                    [title]="'platform.upload.attachAThumbnail'"
+                    [(files)]="file"
+                    [accept]="['image','application']"
+                    [multiple]="false"
+                    [(existingFiles)]="existingFiles"
+                    [required]="true"
+                    ></app-file-upload>
+                 </div>
+                </div>
+              </ng-template>
+
+              <!-- <p>Selected Color: {{ selectedColor }}</p> -->
+
+            </div>
+            <div  class="text-[13px] relative text-red-500" *ngIf="form.controls['color'].invalid">
+              <ng-container>
+                  <div class="text-left mt-1" *ngIf="form.controls['color'].errors?.['required'] && (form.controls['color'].dirty || form.controls['color'].touched)">This field is required</div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="flex flex-col relative">
+          <label class="text-gray-800 font-nunito-medium text-[13px]">Production</label>
+          <div class="select_coll relative w-full h-[45px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="productions" formControlName="production_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div> -->
+      </form>
+    </div>
+    <div class="w-full flex items-center justify-center gap-1 mt-5">
+      <button type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="closePopup()">Annuler</button>
+      <button *ngIf="eventype == 'add' || eventype == 'duplicate'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-valide_bg cursor-pointer" (click)="save()">
+        <ng-container *ngIf="!loading;else loading_">
+          Ajouter
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+      <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+        <ng-container *ngIf="!loading;else loading_">
+        Modifier
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+    </div>
+</div>

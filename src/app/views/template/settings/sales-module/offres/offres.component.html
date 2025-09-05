@@ -1,0 +1,106 @@
+<div class="w-full relative">
+  <section class="w-full relative bg-white rounded-lg p-6 grow overflow-y-auto  mt-[50px]" style="height: calc(100vh - 148px) ;">
+    <div class="flex justify-between items-center pb-5 mb-5">
+        <div class=" md:col-span-6 sm:col-span-12">
+            <h3 class="font-bold text-[24px] text-gray-700">Offres</h3>
+          </div>
+          <div class="md:col-span-6 sm:col-span-12">
+            <div class="flex justify-end items-center gap-2">
+              <div class="inline-block relative">
+                <input type="text" placeholder="Recherche ..." class="border rounded-md w-[280px] px-3 py-2 outline-none">
+                <svg class="w-5 absolute right-4 top-[50%] -translate-y-[50%] text-gray-400 pointer-events-none" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!--  -->
+
+        <div class="grid grid-cols-3 gap-6">
+          <!-- form -->
+          <div class="col-span-1">
+            <div  class="w-full bg-white rounded-md relative ">
+              <!--  -->
+              <div class="w-full overflow-y-auto">
+                <form [formGroup]="myForm" class="w-full relative mt-6" >
+                    <div class="mt-2">
+                      <input formControlName="title" placeholder="title" class="block w-full min-h-[48px] p-3 border-[1px] rounded-md border-gray-300 outline-none text-[16px] text-gray-600 font-nunito-regular" />
+                      <div class="text-[13px] relative text-red-500" *ngIf="form.controls['title'].invalid">
+                        <ng-container>
+                            <div class="text-left mt-1" *ngIf="form.controls['title'].errors?.['required'] && (form.controls['title'].dirty || form.controls['title'].touched)">This field is required</div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="w-full flex items-center justify-end gap-1 mt-2">
+                  <button type="submit" class="px-8 py-3 rounded-md text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="handleResetform()">Annuler</button>
+                  <button *ngIf="eventype == 'add'" type="submit" class="px-8 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-valide_bg cursor-pointer" (click)="save()">
+                    <ng-container *ngIf="!loading;else loading_">
+                      Ajouter
+                    </ng-container>
+                    <ng-template #loading_>
+                      <div class="spinner_ mr-3"></div>
+                    </ng-template>
+                    </button>
+                  <button *ngIf="eventype == 'edit'" type="submit" class="px-8 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+                    <ng-container *ngIf="!loading;else loading_">
+                    Modifier
+                    </ng-container>
+                    <ng-template #loading_>
+                      <div class="spinner_ mr-3"></div>
+                    </ng-template>
+                    </button>
+                </div>
+            </div>
+
+          </div>
+
+          <!-- listing  -->
+          <div class="col-span-2">
+
+            <table class="border-collapse border border-slate-200  w-full mt-5">
+              <thead>
+                <tr class=" ">
+                  <th class="border text-slate-600 p-3 text-left font-nunito-regula w-[80px]">#</th>
+                  <th class="border text-slate-600 p-3 text-left font-nunito-regula">Titre</th>
+                  <th class="border text-slate-600 p-3 text-left font-nunito-regula w-[80px]">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="categories?.length > 0; else noCategory">
+                  <tr *ngFor="let item of categories; let i = index">
+                    <td class="border border-slate-200 font-nunito-regular text-gray-500 p-3">{{ i }}</td>
+                    <td class="border border-slate-200 font-nunito-regular text-gray-500 p-3">{{ item?.title }}</td>
+                    <td class="border border-slate-200 font-nunito-regular text-gray-500 p-3">
+                      <ul class="relative flex items-center">
+                        <li>
+                          <button (click)="handleEdit(item, i)" class="flex p-1 text-orange-400">
+                            <svg class="w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                          </button>
+                        </li>
+                        <li>
+                          <button (click)="handleDelete(item.id,i)" class="flex p-1 text-red-500" >
+                            <svg class="w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                          </button>
+                        </li>
+                    </ul>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-template #noCategory>
+                  <tr >
+                    <td colspan="3" class="border border-slate-200 p-3 font-nunito-regular text-red-500 text-center">aucun catégorie</td>
+                  </tr>
+                </ng-template>
+
+              </tbody>
+            </table>
+
+          </div>
+
+
+        </div>
+  </section>
+</div>

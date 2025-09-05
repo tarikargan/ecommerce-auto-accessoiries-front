@@ -1,0 +1,144 @@
+<!-- <div class="w-full relative">
+  <section class="w-full relative bg-white rounded-lg p-6 mt-3 grow overflow-y-auto   flex flex-col" style="height: calc(100vh - 120px) ;">
+        <div class="grow overflow-y-auto scrollbar_ relative flex flex-col" *ngIf="!loading">
+
+          <article class="text-gray-700 body-font bg-white " >
+            <div class="container px-5 py-10 mx-auto">
+              <div class="w-full mx-auto flex flex-wrap mb-10">
+                <div class="lg:w-1/3 w-full px-10">
+                  <div>
+                    <img [src]="commande?.product?.photos?.src" alt="ecommerce" class="w-full object-cover object-center  border-gray-200" >
+                  </div>
+                </div>
+                <div class="lg:w-2/3 w-full lg:pl-10 ">
+                  <div *ngIf="commande?.offre" class="w-full relative h-[32px] rounded-lg text-white font-nunito-semiBold bg-red-500 flex items-center px-5 mb-6">
+                      {{ commande?.offre?.title }}
+                  </div>
+
+                  <h1 class="text-gray-900 text-3xl title-font font-medium mb-1 mt-3">{{ commande?.product?.title }}</h1>
+                  <h2 class="text-sm title-font text-gray-500 tracking-widest">Ref . {{ commande?.ref }}</h2>
+                  <p class="leading-relaxed mt-5">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="w-full border border-gray-700 rounded-xl p-10 mt-10 relative ">
+                <h1 class="absolute left-6 -top-[19px] bg-gray-900 text-white py-2 px-6 rounded-md font-nunito-light text-sm">Order details</h1>
+                <div class="relative grid grid-cols-2 gap-10">
+                  <div class="">
+                    <h3 class="font-nunito-bold text-[16px] mb-3">Product:  </h3>
+                    <table class="w-full table table-fixed">
+                      <tr>
+                        <td  class="font-nunito-semiBold text-[15px] text-gray-800">Nom de produit : </td>
+                        <td class="w-2/3 text-sm text-gray-500">{{ commande?.product?.title }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Taille : </td>
+                        <td class="text-sm text-gray-500">{{ commande?.quantite_taille?.taille?.name }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Couleur : </td>
+                        <td class="text-sm text-gray-500">
+                          <p class="text-[14px] font-nunito-medium text-left text-gray-500">
+                            <label *ngIf="commande?.quantite_taille?.color == 'white'" for="color1" class="h-6 w-6 inline-flex rounded-md bg-white-500 border-2 ">
+                            </label>
+                            <label *ngIf="commande?.quantite_taille?.color == 'yellow'" for="color2" class="h-6 w-6 inline-flex rounded-md bg-yellow-500 border-2 ">
+                            </label>
+                            <label *ngIf="commande?.quantite_taille?.color == 'orange'" for="color3" class="h-6 w-6 inline-flex rounded-md bg-orange-500 border-2 ">
+                            </label>
+                            <label *ngIf="commande?.quantite_taille?.color == 'red'" for="color4" class="h-6 w-6 inline-flex rounded-md bg-red-500 border-2 ">
+                            </label>
+                            <label *ngIf="commande?.quantite_taille?.color == 'blue'" for="color5" class="h-6 w-6 inline-flex rounded-md bg-blue-500 border-2 ">
+                            </label>
+                            <label *ngIf="commande?.quantite_taille?.color == 'green'" for="color6" class="h-6 w-6 inline-flex rounded-md bg-green-500 border-2 ">
+                            </label>
+                            <label *ngIf="commande?.quantite_taille?.color == 'black'" for="color7" class="h-6 w-6 inline-flex rounded-md bg-black border-2 ">
+                            </label>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Quantite : </td>
+                        <td class="text-sm text-gray-500">{{ commande?.quantite }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Price : </td>
+                        <td class="text-sm font-nunito-semiBold text-gray-800">{{ commande?.product?.price * commande?.quantite }} Dh</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="absolute h-full border-l left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]"></div>
+                  <div class="">
+                    <h3 class="font-nunito-bold text-[16px] mb-3">Client:  </h3>
+                    <table class="w-full table table-fixed">
+                      <tr>
+                        <td  class="font-nunito-semiBold text-[15px] text-gray-800">Nom Prenom : </td>
+                        <td class="w-2/3 text-sm text-gray-500">{{ commande?.client?.nom }} {{ commande?.client?.prenom }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Telephone : </td>
+                        <td class="text-sm text-gray-500">{{ commande?.client?.tele}}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Adresse : </td>
+                        <td class="text-sm text-gray-500">{{ commande?.client?.address }}</td>
+                      </tr>
+                      <tr>
+                        <td class="font-nunito-semiBold text-[15px] text-gray-800">Ville : </td>
+                        <td class="text-sm text-gray-500">{{ commande?.client?.ville }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-full my-3">
+                <hr>
+              </div>
+              <div class="w-full border border-gray-700 rounded-xl p-10 mt-10 relative ">
+                <h1 class="absolute left-6 -top-[19px] bg-gray-900 text-white py-2 px-6 rounded-md font-nunito-light text-sm">Statut de la commande</h1>
+
+                <div class="relative w-full  px-2">
+                  <div class="stepper-area relative ">
+                    <ng-container *ngFor="let etape of commande?.etapes">
+                      <div class="step relative pl-5" [ngClass]="{'active': etape?.EtapeDate != null }" >
+                        <h3 class="">{{ etape?.title }}</h3>
+                        <div *ngIf="etape?.EtapeDate != null" class="flex items-center gap-2 pl-3">
+                          <svg class="w-4 text-gray-400" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z"></path>
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"></path>
+                          </svg>
+                          <span class="font-nunito-light text-[12px] text-gray-500">
+                            {{ etape?.EtapeDate }}
+                          </span>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="mt-5 flex justify-between items-center w-full border bg-gray-900 rounded-xl px-10 py-5 relative ">
+                <p  class="font-nunito-semiBold text-[16px] text-white">Total de prix : </p>
+                <p class="font-nunito-semiBold text-[16px] text-white">{{ commande?.montant }} DH</p>
+              </div>
+
+            </div>
+          </article>
+        </div>
+        <ng-template #noResult>
+          <div class="w-full flex justify-center items-center grow pr-1 ">
+            <div class="p-6 flex flex-col items-center">
+              <img src="assets/images/Noitemfound.svg" class="scale-70" alt="">
+              <h3 class="text-[14px] font-nunito-medium text-gray-500 mt-2">Aucun details</h3>
+            </div>
+           </div>
+       </ng-template>
+       <ng-container *ngIf="loading">
+        <div class="w-full  flex justify-center items-center grow  pr-1 " >
+        </div>
+       </ng-container>
+  </section>
+</div> -->

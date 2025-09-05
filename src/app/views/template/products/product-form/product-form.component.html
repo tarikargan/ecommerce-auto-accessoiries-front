@@ -1,0 +1,203 @@
+<div  class="w-full h-screen p-0 bg-white rounded-l-md relative flex flex-col">
+
+  <header class="relative w-full px-10 pt-10">
+    <div class="w-full relative flex justify-between items-center mb-5">
+      <h1 class="text-[18px] font-nunito-bold">{{ eventype == 'add' ? 'Create Product':'Product Edit' }}</h1>
+      <button (click)="closePopup()" class="outline-none border-none bg-transparent">
+        <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+
+    <div *ngIf="messge" class="w-full p-5 rounded-md bg-green-50 text-green-400 text-[14px]">
+          {{ messge }}
+    </div>
+  </header>
+
+  <!--  -->
+  <div class="grow w-full overflow-y-auto scrollbar_ px-10 ">
+    <div class="border rounded-[16px] ">
+      <header class="border-b p-5">
+        <h3 class="text-gray-600 font-nunito-semiBold">Add Product Photo</h3>
+      </header>
+      <div class="row-span-2 relative flex flex-col p-5">
+        <!-- <label class="text-[14px] font-inter-regular  text-gray-500 peer-focus:text-gray-color" for="" >Pièce jointe</label> -->
+         <div class="grow w-full h-full">
+            <app-file-upload
+            (filesChange)="readFileCover($event)"
+            class=" "
+            [title]="'platform.upload.attachAThumbnail'"
+            [(files)]="files"
+            [accept]="['image','application']"
+            [multiple]="true"
+            [(existingFiles)]="existingFiles"
+            [required]="true"
+            ></app-file-upload>
+         </div>
+         <div class="text-[13px] relative text-red-500" *ngIf="form.controls['photos'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['photos'].errors?.['required'] && (form.controls['photos'].dirty || form.controls['photos'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="productForm" class="w-full relative mt-6" >
+        <div class="border rounded-[16px]  mt-3">
+          <header class="border-b p-5">
+            <h3 class="text-gray-600 font-nunito-semiBold">Product Information</h3>
+          </header>
+
+          <div class="p-5 ">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="flex flex-col relative mt-2">
+                <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99999]">Product Categories</label>
+                <div class="select_coll relative w-full h-[40px]">
+                  <ng-select [notFoundText]="'No items found'" (change)="handleChangeCategory($event)" appearance="outline" [items]="categories" formControlName="category_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+                    <ng-template ng-label-tmp let-item="item" >
+                      <div class="flex gap-2 items-center">
+                        <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+              <!--  -->
+              <div class="flex flex-col relative mt-2">
+                <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99999]">Product Sub Categories</label>
+                <div class="select_coll relative w-full h-[40px]">
+                  <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="subCategories" formControlName="sub_category_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+                    <ng-template ng-label-tmp let-item="item" >
+                      <div class="flex gap-2 items-center">
+                        <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <!--  -->
+            <div class="mt-[24px] relative">
+              <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] ">Product Name</label>
+              <input formControlName="title" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['title'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['title'].errors?.['required'] && (form.controls['title'].dirty || form.controls['title'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+            <!--  -->
+            <div class="w-full relative grid grid-cols-2 gap-1">
+              <!--  -->
+              <div class="mt-[24px] relative">
+                <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] ">Price</label>
+                <input type="number" formControlName="price" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+                <div class="text-[13px] relative text-red-500" *ngIf="form.controls['price'].invalid">
+                  <ng-container>
+                      <div class="text-left mt-1" *ngIf="form.controls['price'].errors?.['required'] && (form.controls['price'].dirty || form.controls['price'].touched)">This field is required</div>
+                  </ng-container>
+                </div>
+              </div>
+              <!--  -->
+              <div class="mt-[24px] relative">
+                <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] ">Sale price</label>
+                <input formControlName="sale_price" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" rows="2"/>
+                <div class="text-[13px] relative text-red-500" *ngIf="form.controls['sale_price'].invalid">
+                  <ng-container>
+                      <div class="text-left mt-1" *ngIf="form.controls['sale_price'].errors?.['required'] && (form.controls['sale_price'].dirty || form.controls['sale_price'].touched)">This field is required</div>
+                  </ng-container>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- <div class="w-full relative ">
+              <div class="mt-[24px] relative">
+                <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] ">Ref</label>
+                <input formControlName="ref" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" rows="2"/>
+                <div class="text-[13px] relative text-red-500" *ngIf="form.controls['ref'].invalid">
+                  <ng-container>
+                      <div class="text-left mt-1" *ngIf="form.controls['ref'].errors?.['required'] && (form.controls['ref'].dirty || form.controls['ref'].touched)">This field is required</div>
+                  </ng-container>
+                </div>
+              </div>
+            </div> -->
+
+            <!--  -->
+            <div class="w-full relative grid grid-cols-2 gap-1">
+              <div class="flex flex-col mt-[24px] relative">
+                <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99999]">Fournisseur</label>
+                <div class="select_coll relative w-full h-[45px]">
+                  <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="fournisseurs" formControlName="fournisseur_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+                    <ng-template ng-label-tmp let-item="item" >
+                      <div class="flex gap-2 items-center">
+                        <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="flex flex-col mt-[24px] relative">
+                <label class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px] z-[99999]">Production</label>
+                <div class="select_coll relative w-full h-[45px]">
+                  <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="productions" formControlName="production_id" bindValue="id" bindLabel="title" [clearable]="false"  >
+                    <ng-template ng-label-tmp let-item="item" >
+                      <div class="flex gap-2 items-center">
+                        <ng-template #noAvatar>
+                            <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                              {{ item.title }}
+                            </span>
+                        </ng-template>
+                        <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+             <!--  -->
+             <div class="mt-[24px] relative flex flex-col">
+                <label for="" class="absolute left-4 -top-[9px] bg-white text-[12px] px-2 text-[#101323CC] font-inter-regular rounded-[4px]">Description</label>
+                <quill-editor trackChanges="all" formControlName="description" placeholder="description ..." [modules]="{ syntax: false, toolbar: myToolbar}"
+                [styles]="{minHeight: '140px'}"></quill-editor>
+                <!-- <input formControlName="description" class="block w-full min-h-[48px] p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" rows="2"/> -->
+                <div class="text-[13px] relative text-red-500" *ngIf="form.controls['description'].invalid">
+                  <ng-container>
+                      <div class="text-left mt-1" *ngIf="form.controls['description'].errors?.['required'] && (form.controls['description'].dirty || form.controls['description'].touched)">This field is required</div>
+                  </ng-container>
+                </div>
+            </div>
+
+
+
+            <div class="mt-5 flex justify-between">
+              <label for="checked-publish " class="flex text-gray-800 font-nunito-medium text-[14px]">Voulez-vous publier ce produit?</label>
+              <input type="checkbox" class="checked-publish checkbox" id="checked-publish" formControlName="status" name="" id="">
+            </div>
+          </div>
+        </div>
+    </form>
+    </div>
+    <div class="w-full flex items-center justify-end gap-1 my-5 px-10 ">
+      <div class="w-full flex justify-end items-center gap-1 bg-blue-700/5 p-4 rounded-[16px]">
+        <button type="submit" class="px-10 py-3 rounded-[16px] text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 bg-white cursor-pointer" (click)="closePopup()">Annuler</button>
+        <button *ngIf="eventype == 'add' || eventype == 'duplicate'" type="submit" class="px-10 py-3 rounded-[16px] text-[14px] font-nunito-medium text-white bg-[#3742f4] cursor-pointer" (click)="save()">
+          <ng-container *ngIf="!loading;else loading_">
+            Save
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+        <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-[16px] text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+          <ng-container *ngIf="!loading;else loading_">
+          Save
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+
+      </div>
+    </div>
+</div>

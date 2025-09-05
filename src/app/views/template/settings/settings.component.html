@@ -1,0 +1,368 @@
+<div class="relative mt-36 flex flex-col flex-auto min-w-0 p-4 shadow-lg overflow-hidden break-words bg-white border-0 shadow-3xl dark:bg-slate-850 rounded-2xl bg-clip-border">
+  <div class="flex flex-wrap -mx-3">
+    <div class="flex-none w-auto max-w-full px-3 my-auto">
+      <div class="h-full">
+        <h5 class="mb-1 ">Settings</h5>
+        <p class="mb-0 text-sm font-semibold leading-normal text-gray-500/60">Public Relations</p>
+      </div>
+    </div>
+    <div class="w-full max-w-full px-3 mx-auto mt-4 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12">
+      <div class="relative right-0">
+        <ul class="relative flex flex-wrap p-1 list-none bg-gray-100 rounded-xl" nav-pills="" role="tablist">
+          <li class="z-30 flex-auto text-center">
+            <button (click)="handleToggleActiveOption('production')" class="{{ activeOption == 'production' ? 'bg-gray-900 text-white':'' }} z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-all ease-in-out border-0 rounded-lg  text-slate-700"
+              nav-link="" href="javascript:;" role="tab" aria-selected="false">
+              <i class="ni ni-email-83"></i>
+              <span class="ml-2">Production</span>
+            </button>
+          </li>
+          <li class="z-30 flex-auto text-center">
+            <button (click)="handleToggleActiveOption('vente')" class="{{ activeOption == 'vente' ? 'bg-gray-900 text-white':'' }} z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-colors ease-in-out border-0 rounded-lg  text-slate-700"
+              nav-link="" href="javascript:;" role="tab" aria-selected="false">
+              <i class="ni ni-settings-gear-65"></i>
+              <span class="ml-2">Vente</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-container *ngIf="activeOption == 'production'">
+  <div class="grid grid-cols-1 md:lg:xl:grid-cols-3 gap-3 mt-16">
+    <a routerLink="/admin/production-module/fournisseurs"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center w-12 h-12 text-center rounded-full bg-red-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 text-white" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Fournisseurs</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/matiere-promieres"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-orange-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Matières Premières</p>
+
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/productions"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Productions</p>
+
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/saisons"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-lime-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Saisons</p>
+
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/stocks"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-teal-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Entrepôts</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/tailles"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-indigo-500">
+              <svg class="h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path
+                  d="M2 4.5A2.5 2.5 0 014.5 2h11a2.5 2.5 0 010 5h-11A2.5 2.5 0 012 4.5zM2.75 9.083a.75.75 0 000 1.5h14.5a.75.75 0 000-1.5H2.75zM2.75 12.663a.75.75 0 000 1.5h14.5a.75.75 0 000-1.5H2.75zM2.75 16.25a.75.75 0 000 1.5h14.5a.75.75 0 100-1.5H2.75z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Tailles</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/categories"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-green-500">
+              <svg class="w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path clip-rule="evenodd" fill-rule="evenodd"
+                  d="M3.5 2A1.5 1.5 0 002 3.5V15a3 3 0 106 0V3.5A1.5 1.5 0 006.5 2h-3zm11.753 6.99L9.5 14.743V6.257l1.51-1.51a1.5 1.5 0 012.122 0l2.121 2.121a1.5 1.5 0 010 2.122zM8.364 18H16.5a1.5 1.5 0 001.5-1.5v-3a1.5 1.5 0 00-1.5-1.5h-2.136l-6 6zM5 16a1 1 0 100-2 1 1 0 000 2z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Categories</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/sub-categories"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-emerald-500">
+              <svg class="w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path clip-rule="evenodd" fill-rule="evenodd"
+                  d="M6 4.75A.75.75 0 016.75 4h10.5a.75.75 0 010 1.5H6.75A.75.75 0 016 4.75zM6 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H6.75A.75.75 0 016 10zm0 5.25a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H6.75a.75.75 0 01-.75-.75zM1.99 4.75a1 1 0 011-1H3a1 1 0 011 1v.01a1 1 0 01-1 1h-.01a1 1 0 01-1-1v-.01zM1.99 15.25a1 1 0 011-1H3a1 1 0 011 1v.01a1 1 0 01-1 1h-.01a1 1 0 01-1-1v-.01zM1.99 10a1 1 0 011-1H3a1 1 0 011 1v.01a1 1 0 01-1 1h-.01a1 1 0 01-1-1V10z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Sub categories</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/production-module/unites"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-emerald-500">
+              <svg class="w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path clip-rule="evenodd" fill-rule="evenodd"
+                  d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zm11 2A1.5 1.5 0 0012 6.5v7a1.5 1.5 0 001.5 1.5h4a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0017.5 5h-4zm-10 7A1.5 1.5 0 002 13.5v2A1.5 1.5 0 003.5 17h6a1.5 1.5 0 001.5-1.5v-2A1.5 1.5 0 009.5 12h-6z">
+                </path>
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Unites</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="activeOption == 'vente'">
+  <div class="grid grid-cols-1 md:lg:xl:grid-cols-3 gap-3 mt-16">
+    <a routerLink="/admin/sales-module/mode-livraison"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center w-12 h-12 text-center rounded-full bg-red-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 text-white" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Mode de livraison</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/sales-module/etapes"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-orange-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Etapes</p>
+
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/sales-module/offres"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Offres</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <a routerLink="/admin/sales-module/sources"
+      class="relative min-w-0 break-words bg-white shadow-md shadow-indigo-500/20 rounded-lg bg-clip-border">
+      <div class="flex-auto p-4">
+        <div class="flex flex-row ">
+          <div class=" ">
+            <div class="grid place-content-center text-white w-12 h-12 text-center rounded-full bg-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+              </svg>
+            </div>
+          </div>
+          <div class=" px-3">
+            <div>
+              <p class="mb-0 font-sans font-semibold leading-normal uppercase text-sm">Sources</p>
+              <p class="py-3 text-left text-sm text-slate-500">
+                Team BrainEdge education is a bunch of highly focused, energetic set of people.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</ng-container>
+
+

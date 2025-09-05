@@ -1,0 +1,152 @@
+<div  class="w-full h-screen p-10 bg-white rounded-md relative flex flex-col">
+
+  <header class="relative w-full ">
+    <div class="w-full relative flex justify-between items-center mb-5">
+      <h1 class="text-[18px] font-nunito-bold">{{ eventype == 'add' ? 'Ajouter un témoignage':'Modification du témoignage' }}</h1>
+      <button (click)="closePopup()" class="outline-none border-none bg-transparent">
+        <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+
+    <div *ngIf="messge" class="w-full p-5 rounded-md bg-green-50 text-green-400 text-[14px]">
+          {{ messge }}
+    </div>
+  </header>
+  <!--  -->
+  <div class="grow w-full overflow-y-auto">
+    <form [formGroup]="productionForm" class="w-full relative mt-6" >
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-medium text-[13px]">Quantité estime</label>
+
+          <input type="number" formControlName="quantite" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['quantite'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['quantite'].errors?.['required'] && (form.controls['quantite'].dirty || form.controls['quantite'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-medium text-[13px]">Quantité livré</label>
+
+          <input type="number" formControlName="quantite_livre" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['quantite_livre'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['quantite_livre'].errors?.['required'] && (form.controls['quantite_livre'].dirty || form.controls['quantite_livre'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-medium text-[13px]">color</label>
+
+          <input formControlName="color" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['color'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['color'].errors?.['required'] && (form.controls['color'].dirty || form.controls['color'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div> -->
+        <div class="flex flex-col relative mt-2">
+          <label class="text-gray-800 font-nunito-medium text-[13px]">Taille</label>
+          <div class="select_coll relative w-full h-[45px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="tailles" formControlName="taille_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+
+        <div class="flex flex-col relative mt-2">
+          <label class="text-gray-800 font-nunito-medium text-[13px]">Stock</label>
+          <div class="select_coll relative w-full h-[45px]">
+            <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="stocks" formControlName="stock_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="flex gap-2 items-center">
+                  <ng-template #noAvatar>
+                      <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                        {{ item.title }}
+                      </span>
+                  </ng-template>
+                  <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 mt-6">
+          <h2 class="font-nunito-semiBold text-gray-700">Color</h2>
+          <hr class="grow">
+        </div>
+        <div class="pl-3">
+          <div class="">
+            <div>
+              <label class="text-gray-800 font-nunito-medium text-[13px]">Sélectionner matiere</label>
+            </div>
+            <div *ngIf="!enterColor" class="flex flex-wrap gap-1 mt-2">
+              <label for="color1" class="h-8 w-16 rounded-md bg-white-500 border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color1" value="white" />
+              </label>
+              <label for="color2" class="h-8 w-16 rounded-md bg-yellow-500 border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color2" value="yellow" />
+              </label>
+              <label for="color3" class="h-8 w-16 rounded-md bg-orange-500 border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color3" value="orange" />
+              </label>
+              <label for="color4" class="h-8 w-16 rounded-md bg-red-500 border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color4" value="red" />
+              </label>
+              <label for="color5" class="h-8 w-16 rounded-md bg-blue-500 border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color5" value="blue" />
+              </label>
+              <label for="color6" class="h-8 w-16 rounded-md bg-green-500 border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color6" value="green" />
+              </label>
+              <label for="color7" class="h-8 w-16 rounded-md bg-black border-2 hover:border-blue-300 focus:outline-none">
+                <input type="radio" name="color" class="hidden" formControlName="color" id="color7" value="black" />
+              </label>
+            </div>
+            <div class="flex items-center gap-2 my-2">
+              <input type="checkbox" (change)="handleChangeOther($event)" id="">
+              <span class="font-nunito-regular text-gray-500 text-md">Autre</span>
+            </div>
+            <div *ngIf="enterColor">
+              <input type="text" placeholder="Color" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" formControlName="color">
+            </div>
+            <div  class="text-[13px] relative text-red-500" *ngIf="form.controls['color'].invalid">
+              <ng-container>
+                  <div class="text-left mt-1" *ngIf="form.controls['color'].errors?.['required'] && (form.controls['color'].dirty || form.controls['color'].touched)">This field is required</div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="w-full flex items-center justify-center gap-1 mt-5">
+      <button type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="closePopup()">Annuler</button>
+      <button *ngIf="eventype == 'add'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-valide_bg cursor-pointer" (click)="save()">
+        <ng-container *ngIf="!loading;else loading_">
+          Ajouter
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+      <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+        <ng-container *ngIf="!loading;else loading_">
+        Modifier
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+    </div>
+</div>

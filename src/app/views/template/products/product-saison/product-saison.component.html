@@ -1,0 +1,51 @@
+<div  class="w-full p-8 bg-white rounded-md relative">
+  <button (click)="closePopup()" class="btn-cls absolute -top-[45px] right-0 bg-white hover:bg-red-50 hover:text-red-500 rounded-full w-[25px] aspect-square grid place-content-center">
+    <svg class="w-[0.9rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+  </button>
+  <header class="relative w-full ">
+    <div class="w-full relative flex justify-between items-center mb-5">
+      <h1 class="text-[18px] font-nunito-bold">{{ eventype == 'add' ? 'Ajouter un Saison':'Modification du Saison' }}</h1>
+    </div>
+  </header>
+
+  <form [formGroup]="productSaisonForm" class="w-full relative mt-6" >
+    <!--  -->
+    <div class="flex flex-col relative mt-2">
+      <label class="text-gray-800 font-nunito-medium text-[13px]">Saison</label>
+      <div class="select_coll relative w-full h-[45px]">
+        <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="saisons" formControlName="saisonId" bindValue="id" bindLabel="title" [clearable]="false"  >
+          <ng-template ng-label-tmp let-item="item" >
+            <div class="flex gap-2 items-center">
+              <ng-template #noAvatar>
+                  <span class="notImg w-[26px] aspect-square bg-indigo-600 rounded-full grid place-content-center text-white text-[10px] font-nunito-medium ">
+                    {{ item.title }}
+                  </span>
+              </ng-template>
+              <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.title }}</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <!--  -->
+    <div class="w-full flex items-center justify-end gap-1 mt-5">
+      <button type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="closePopup()">Annuler</button>
+      <button *ngIf="eventype == 'add'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-valide_bg cursor-pointer" (click)="update()">
+        <ng-container *ngIf="!loading;else loading_">
+          Ajouter
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+      <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+        <ng-container *ngIf="!loading;else loading_">
+        Modifier
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+    </div>
+  </form>
+</div>

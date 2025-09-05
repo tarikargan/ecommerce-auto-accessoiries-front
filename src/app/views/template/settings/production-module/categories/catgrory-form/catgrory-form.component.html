@@ -1,0 +1,92 @@
+<div class="bg-[#F9F7F7] rounded-l-[20px] w-full h-screen p-6">
+  <div class="px-6 pb-6">
+    <h3 class="font-play-bold text-titleColor text-[15px]">{{eventype == 'add' ? 'Create Category': 'Category Edit'}}</h3>
+  </div>
+  <div class="w-full flex gap-4">
+    <div class=" rounded-[16px] xl:w-[30%] lg:w-[40%] ">
+      <div class="bg-white rounded-[16px] w-full p-5">
+        <div class="w-full rounded-[16px] aspect-[16/9] overflow-hidden">
+          <img src="{{url}}" *ngIf="url != null; else noImg" class="h-full w-full object-cover rounded-md" alt="">
+          <ng-template #noImg>
+            <img src="assets/images/svg/upload.svg" class="h-full w-full object-cover rounded-md" alt="">
+          </ng-template>
+        </div>
+        <h3 class="font-nunito-semiBold text-[14px] text-[#313B5E] mt-2">{{form.get('name')?.value != '' ? form.get('name')?.value : 'Category Title'}}</h3>
+        <hr class="my-3">
+        <div class="grid grid-cols-2 gap-1 mt-3">
+          <button *ngIf="eventype == 'add'" class="font-play-regular text-[14px] h-[42px] w-full rounded-[9px] border border-[#313B5E] px-2" (click)="save()">
+
+            <ng-container *ngIf="!loading; else loading_">
+                <ng-container >
+                  Save
+                </ng-container>
+            </ng-container>
+            <ng-template #loading_>
+              <div class="spinner_ mr-3"></div>
+            </ng-template>
+          </button>
+
+          <button *ngIf="eventype == 'edit'"  class="font-play-regular text-[14px] h-[42px] w-full rounded-[9px] border border-[#313B5E] px-2" (click)="update()">
+            <ng-container *ngIf="!loading; else loading_">
+
+                <ng-container>
+                  Update
+                </ng-container>
+            </ng-container>
+            <ng-template #loading_>
+              <div class="spinner_ mr-3"></div>
+            </ng-template>
+          </button>
+
+          <button class="font-play-regular text-[14px] h-[42px] w-full rounded-[9px] bg-orange-500 text-white px-2" (click)="hideForm_()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class=" relative  grow flex flex-col pb-5 h-[calc(100vh-70px)]">
+      <div class=" rounded-[16px] bg-white">
+        <header class="border-b p-5">
+          <h3 class="text-gray-600 font-nunito-semiBold">Add Thumbnail Photo</h3>
+        </header>
+        <div class="row-span-2 relative flex flex-col p-5">
+          <!-- <label class="text-[14px] font-inter-regular  text-gray-500 peer-focus:text-gray-color" for="" >Pièce jointe</label> -->
+           <div class="grow w-full h-full">
+              <app-file-upload
+                (filesChange)="readFileCover($event)"
+                class=" "
+                [title]="'platform.upload.attachAThumbnail'"
+                [(files)]="files"
+                [accept]="['image']"
+                [multiple]="false"
+                [(existingFiles)]="existingFiles"
+                [required]="true"
+              ></app-file-upload>
+           </div>
+           <!-- <div class="text-[13px] relative text-red-500" *ngIf="form.controls['photos'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['photos'].errors?.['required'] && (form.controls['photos'].dirty || form.controls['photos'].touched)">This field is required</div>
+            </ng-container>
+          </div> -->
+        </div>
+      </div>
+      <div class="w-full bg-white  rounded-[16px] mt-4 grow">
+        <header class="border-b px-5 py-3">
+          <h3 class="text-gray-600 font-nunito-semiBold">General Information</h3>
+        </header>
+        <form [formGroup]="myForm" class="w-full relative p-5" >
+            <div class="mt-2 relative">
+              <label class="text-[14px] font-play-regular text-gray-600 mb-1 inline-block" for="">Category Title</label>
+              <input formControlName="name"  class="block w-full h-[42px] p-3 border-[1px] rounded-[10px] border-gray-500 outline-none text-[16px] text-gray-600 font-nunito-regular" />
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['name'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['name'].errors?.['required'] && (form.controls['name'].dirty || form.controls['name'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+
+  </div>
+
+
+</div>

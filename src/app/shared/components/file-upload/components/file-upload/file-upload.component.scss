@@ -1,0 +1,35 @@
+::ng-deep {
+  .ngx-file-drop__drop-zone {
+    height: 100% !important;
+    margin: auto;
+    border: none !important;
+    border-radius: 30px;
+    max-height: auto !important;
+  }
+  .ngx-file-drop__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100% !important;
+}
+}
+
+
+
+.delete_avatar{
+  transform: scale(0);
+  transition: all 0.1s ease-in;
+}
+
+.avata_user:hover .delete_avatar{
+  transform: scale(1);
+}
+
+.apload_avatar{
+  transform: scale(0) ;
+}
+
+.without_avatar:hover .apload_avatar{
+  transform: scale(1);
+}
+

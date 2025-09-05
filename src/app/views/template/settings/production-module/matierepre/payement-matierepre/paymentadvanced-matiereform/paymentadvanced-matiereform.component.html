@@ -1,0 +1,63 @@
+<div  class="w-full h-screen p-10 bg-white rounded-l-md relative flex flex-col">
+
+  <header class="relative w-full ">
+    <div class="w-full relative flex justify-between items-center mb-5">
+      <h1 class="text-[18px] font-nunito-bold">{{ eventype == 'add' ? 'Ajouter un paiement':'Modification du paiement' }}</h1>
+      <button (click)="closePopup()" class="outline-none border-none bg-transparent">
+        <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+  </header>
+  <!--  -->
+  <div class="grow w-full overflow-y-auto">
+    <form [formGroup]="paymentAdvancedForm" class="w-full relative mt-6" >
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-medium text-[13px]">Montant</label>
+          <input type="number" formControlName="montant" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['montant'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['montant'].errors?.['required'] && (form.controls['montant'].dirty || form.controls['montant'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-medium text-[13px]">Description</label>
+          <input type="text" formControlName="description" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['description'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['description'].errors?.['required'] && (form.controls['description'].dirty || form.controls['description'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--  -->
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-medium text-[13px]">Date</label>
+          <input type="date" formControlName="date" class="block w-full p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['date'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['date'].errors?.['required'] && (form.controls['date'].dirty || form.controls['date'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="w-full flex items-center justify-center gap-1 mt-5">
+      <button type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="closePopup()">Annuler</button>
+      <button *ngIf="eventype == 'add'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-valide_bg cursor-pointer" (click)="save()">
+        <ng-container *ngIf="!loading;else loading_">
+          Ajouter
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+      <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+        <ng-container *ngIf="!loading;else loading_">
+        Modifier
+        </ng-container>
+        <ng-template #loading_>
+          <div class="spinner_ mr-3"></div>
+        </ng-template>
+        </button>
+    </div>
+</div>

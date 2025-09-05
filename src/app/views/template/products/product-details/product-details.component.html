@@ -1,0 +1,46 @@
+<div class="w-full relative">
+  <section class="w-full relative bg-white rounded-lg p-6 mt-3 grow overflow-y-auto   flex flex-col" style="height: calc(100vh - 120px) ;">
+        <div class="grow overflow-y-auto scrollbar_ relative flex flex-col" *ngIf="!loading">
+          <!-- <div class="flex justify-between items-center">
+            <h3 class="font-nunito-bold text-[24px]">details {{ product?.title }}</h3>
+            <div class="flex gap-2">
+
+
+            </div>
+          </div> -->
+          <!-- component -->
+          <article class="text-gray-700 body-font overflow-hidden bg-white">
+            <div class="container px-5 py-24 mx-auto">
+              <div class="lg:w-4/5 mx-auto flex flex-wrap">
+                <img [src]="product?.photos?.src" alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" >
+                <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-0 lg:mt-0">
+                  <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ product?.title }}</h1>
+                  <h2 class="text-sm title-font text-gray-500 tracking-widest">Ref . {{ product?.ref }}</h2>
+                  <p class="leading-relaxed mt-5">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <!-- no result -->
+        <ng-template #noResult>
+          <div class="w-full flex justify-center items-center grow pr-1 ">
+            <div class="p-6 flex flex-col items-center">
+              <img src="assets/images/Noitemfound.svg" class="scale-70" alt="">
+              <h3 class="text-[14px] font-nunito-medium text-gray-500 mt-2">Aucun E-learning</h3>
+            </div>
+           </div>
+       </ng-template>
+         <!-- loading  -->
+       <ng-container *ngIf="loading">
+        <div class="w-full  flex justify-center items-center grow  pr-1 " >
+          <!-- <app-content-loading></app-content-loading> -->
+        </div>
+       </ng-container>
+  </section>
+</div>
+
+
+
+
+

@@ -1,0 +1,174 @@
+<div  class="w-full h-screen p-0 bg-white rounded-l-md relative flex flex-col">
+
+  <header class="relative w-full px-10 pt-10">
+    <div class="w-full relative flex justify-between items-center mb-5">
+      <h1 class="text-[18px] font-nunito-bold">{{ eventType == 'add' ? 'Create Blog':'Blog Edit' }}</h1>
+      <button (click)="closePopup()" class="outline-none border-none bg-transparent">
+        <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!--  -->
+  <div class="grow w-full overflow-y-auto scrollbar_ px-10 ">
+    <div class="border rounded-[16px] ">
+      <header class="border-b p-5">
+        <h3 class="text-gray-600 font-nunito-semiBold">Add Product Photo</h3>
+      </header>
+      <div class="row-span-2 relative flex flex-col p-5">
+        <!-- <label class="text-[14px] font-inter-regular  text-gray-500 peer-focus:text-gray-color" for="" >Pièce jointe</label> -->
+         <div class="grow w-full h-full">
+            <app-file-upload
+            (filesChange)="readFileCover($event)"
+            class=" "
+            [title]="'platform.upload.attachAThumbnail'"
+            [(files)]="files"
+            [accept]="['image','application']"
+            [multiple]="true"
+            [(existingFiles)]="existingFiles"
+            [required]="true"
+            ></app-file-upload>
+         </div>
+         <div class="text-[13px] relative text-red-500" *ngIf="form.controls['images'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['images'].errors?.['required'] && (form.controls['images'].dirty || form.controls['images'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="blogForm" class="w-full relative mt-6" >
+        <div class="border rounded-[16px]  mt-3">
+          <header class="border-b p-5">
+            <h3 class="text-gray-600 font-nunito-semiBold">Blog Information</h3>
+          </header>
+
+          <div class="p-5 ">
+            <div class=" relative">
+              <label for="" class="text-[14px] bg-white relative z-[99] flex items-center gap-2 font-play-regular text-gray-800">title</label>
+              <input formControlName="title" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" />
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['title'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['title'].errors?.['required'] && (form.controls['title'].dirty || form.controls['title'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+            </div>
+
+            <!-- <div class="grid grid-cols-2 gap-2"> -->
+              <div class="flex gap-1 items-end mt-5">
+                <div class="flex flex-col relative  grow">
+                  <label class="text-[14px] bg-white relative z-[99] flex items-center gap-2 font-play-regular text-gray-800">Category</label>
+                  <div class="select_coll ng-select relative w-full ">
+                    <ng-select [notFoundText]="'No items found'" appearance="outline" [items]="categories" formControlName="blog_category_id" bindValue="id" bindLabel="name" [clearable]="false"  >
+                      <ng-template ng-label-tmp let-item="item" >
+                        <div class="flex gap-2 items-center">
+                          <span class="text-gray-500 font-nunito-regular text-[14px]">{{ item?.name }}</span>
+                        </div>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+
+                <button class="relative aspect-square h-[51px] border border-[#1D1D1B66] rounded-[10px] flex justify-center items-center" (click)="onAddCategory()">
+                    <svg class="w-5" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z"></path>
+                    </svg>
+                </button>
+              </div>
+              <div class="text-[13px] relative text-red-500" *ngIf="form.controls['blog_category_id'].invalid">
+                <ng-container>
+                    <div class="text-left mt-1" *ngIf="form.controls['blog_category_id'].errors?.['required'] && (form.controls['blog_category_id'].dirty || form.controls['blog_category_id'].touched)">This field is required</div>
+                </ng-container>
+              </div>
+
+              <ng-container *ngIf="addCategoryForm">
+                <app-blogcategory-form (addedCat)="addedCat($event)" (closeCatForm)="closeCatForm()"></app-blogcategory-form>
+              </ng-container>
+            <!--  -->
+            <div class="w-full relative grid grid-cols-1 gap-3">
+              <div>
+                <!-- <label>Tags</label> -->
+                <div class=" flex-col w-full relative flex items-start mt-5">
+                  <label for="tags" class="text-[14px] bg-white relative z-[99] flex items-center gap-2 font-play-regular text-gray-800" #labelstorageUrl>
+                    Tags
+                  </label>
+                  <div class="relative w-full">
+                      <input
+                      type="text"
+                      formControlName="tags"
+                      id="tags"
+                      (keydown)="addTag($event)"
+                      class="w-full h-[50px] text-gray-color text-[14px] outline-none relative px-2 text-md bg-transparent border border-[#1D1D1B66] rounded-[12px] block">
+                  </div>
+                  <div class="flex gap-2 items-center flex-wrap mt-2">
+                    <span *ngFor="let tag of tags" class="flex items-center gap-3 bg-blue-400/20 text-blue-950 text-[14px] px-2 py-1 rounded-[12px] capitalize">{{tag}}
+                      <button (click)="removeTag(tag)" class="text-blue-950 p-0 m-0 h-4">
+                        <svg class="w-4" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"></path>
+                        </svg>
+                      </button>
+                    </span>
+                  </div>
+
+
+              </div>
+              </div>
+              <!--  -->
+              <div class=" relative">
+                <label for="" class="text-[14px] bg-white relative z-[99] flex items-center gap-2 font-play-regular text-gray-800">Publish at</label>
+                <input formControlName="published_at"  onfocus="this.showPicker()" type="datetime-local" class="px-6 cursor-pointer border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none"  />
+                <!-- <input type="number" formControlName="price" class="px-6 border border-[#1D1D1B66] rounded-[10px] h-[51px] w-full block text-[#475467CC] text-[13px] bg-white outline-none" /> -->
+                <div class="text-[13px] relative text-red-500" *ngIf="form.controls['published_at'].invalid">
+                  <ng-container>
+                      <div class="text-left mt-1" *ngIf="form.controls['published_at'].errors?.['required'] && (form.controls['published_at'].dirty || form.controls['published_at'].touched)">This field is required</div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+
+             <!--  -->
+             <div class="mt-[24px] relative flex flex-col">
+                <label for="" class="text-[14px] bg-white relative z-[99] flex items-center gap-2 font-play-regular text-gray-800">Description</label>
+                <quill-editor trackChanges="all" formControlName="description" placeholder="description ..." [modules]="{ syntax: false, toolbar: myToolbar}"
+                [styles]="{minHeight: '140px'}"></quill-editor>
+                <!-- <input formControlName="description" class="block w-full min-h-[48px] p-3 border-[1px] rounded-md border-gray-300 outline-none text-[12px] font-nunito-regular" rows="2"/> -->
+                <div class="text-[13px] relative text-red-500" *ngIf="form.controls['description'].invalid">
+                  <ng-container>
+                      <div class="text-left mt-1" *ngIf="form.controls['description'].errors?.['required'] && (form.controls['description'].dirty || form.controls['description'].touched)">This field is required</div>
+                  </ng-container>
+                </div>
+            </div>
+
+
+<!--
+            <div class="mt-5 flex justify-between">
+              <label for="checked-publish " class="flex text-gray-800 font-nunito-medium text-[14px]">Voulez-vous publier ce produit?</label>
+              <input type="checkbox" class="checked-publish checkbox" id="checked-publish" formControlName="status" name="" id="">
+            </div> -->
+          </div>
+        </div>
+    </form>
+    </div>
+    <div class="w-full flex items-center justify-end gap-1 my-5 px-10 ">
+      <div class="w-full flex justify-end items-center gap-1 bg-blue-700/5 p-4 rounded-[16px]">
+        <button type="submit" class="px-10 py-3 rounded-[16px] text-[14px] font-nunito-medium text-gray-800 hover:bg-gray-100 bg-white cursor-pointer" (click)="closePopup()">Annuler</button>
+        <button *ngIf="eventType == 'add' || eventType == 'duplicate'" type="submit" class="px-10 py-3 rounded-[16px] text-[14px] font-nunito-medium text-white bg-[#3742f4] cursor-pointer" (click)="save()">
+          <ng-container *ngIf="!loading;else loading_">
+            Save
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+        <button *ngIf="eventType == 'edit'" type="submit" class="px-10 py-3 rounded-[16px] text-[14px] font-nunito-medium text-white bg-orange-400 cursor-pointer" (click)="update()">
+          <ng-container *ngIf="!loading;else loading_">
+          Save
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+
+      </div>
+    </div>
+</div>

@@ -1,0 +1,274 @@
+<div class="flex gap-3">
+  <div class="relative w-full rounded-[20px] grow ">
+    <div class="relative w-full rounded-[16px]">
+      <header class="relative w-full ">
+        <h1 class="font-nunito-semiBold text-[48px] ">Dashboard</h1>
+        <p class="text-blue-950/80 font-nunito-regular text-[14px]">Your Complete Overview of Sales, Revenue, and Customer Insights</p>
+      </header>
+      <div class="grid grid-cols-12 gap-3 mt-5">
+        <div class="col-span-9">
+          <div class="">
+            <div class="grid gap-4  ">
+              <div class="grid grid-cols-4 gap-3 grow">
+                <!--  -->
+                <div class="cashier-quickview bg-white  rounded-[16px] overflow-hidden  flex flex-col justify-between">
+                  <a class="p-5 block w-full" href="/report/accountsbalance">
+                    <div class=" ">
+                      <div class="flex justify-between items-center">
+                        <div class=" w-[56px] aspect-square min-w-[56px] rounded-[16px] flex justify-center items-center bg-blue-700/20 text-blue-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 text-blue-700" viewBox="0 0 24 24"><path fill="currentColor" d="M3.555 14.257c-.718-3.353-1.078-5.03-.177-6.143C4.278 7 5.993 7 9.422 7h5.156c3.43 0 5.143 0 6.044 1.114s.541 2.79-.177 6.143l-.429 2c-.487 2.273-.73 3.409-1.555 4.076S16.474 21 14.15 21h-4.3c-2.324 0-3.486 0-4.31-.667c-.826-.667-1.07-1.803-1.556-4.076z" opacity=".5"></path><path fill="currentColor" d="M8 11.25a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zM9.25 15a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75"></path><path fill="currentColor" fill-rule="evenodd" d="M14.665 2.33a.75.75 0 0 1 1.006.335l3 6a.75.75 0 1 1-1.342.67l-3-6a.75.75 0 0 1 .336-1.006m-5.33.001a.75.75 0 0 0-1.006.335l-3 6a.75.75 0 1 0 1.342.67l3-6a.75.75 0 0 0-.336-1.006" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <!-- <span class="h-[35px] rounded-[17px] bg-white inline-block text-[14px] font-semibold leading-[35px] px-3 min-w-[70px] text-center text-heading">+65%</span> -->
+                        <div class="flex flex-col justify-between items-end ">
+                          <span class="block text-[14px] font-play-regular text-bodyText text-gray-500">Total Orders</span>
+                          <h4 class="text-[22px] font-nunito-semiBold text-heading">+{{totalOrders}}</h4>
+                        </div>
+                      </div>
+
+                    </div>
+                  </a>
+                  <div class="flex justify-between items-center bg-[#f6f8fb] px-5 py-3">
+                    <div class="flex items-center gap-1">
+                      <div class="flex items-center">
+                        <svg class="-rotate-90 text-green-500 w-3" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z"></path>
+                        </svg>
+                        <span class="text-[12px] font-play-regular text-gray-400">0.3%</span>
+                    </div>
+                      <span class="text-[12px] font-play-regular text-gray-400">Last Month</span>
+                    </div>
+                    <a href="" class="text-[12px] font-play-bold text-gray-800">View More</a>
+                  </div>
+                </div>
+                <!--  -->
+                <div class="cashier-quickview bg-white  rounded-[16px] overflow-hidden  flex flex-col justify-between">
+                  <a class="p-5 block w-full" href="/report/accountsbalance">
+                    <div class=" ">
+                      <div class="flex justify-between items-center">
+                        <div class=" w-[56px] aspect-square min-w-[56px] rounded-[16px] flex justify-center items-center bg-blue-700/20 text-blue-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 text-blue-700" viewBox="0 0 24 24"><path fill="currentColor" d="M3.555 14.257c-.718-3.353-1.078-5.03-.177-6.143C4.278 7 5.993 7 9.422 7h5.156c3.43 0 5.143 0 6.044 1.114s.541 2.79-.177 6.143l-.429 2c-.487 2.273-.73 3.409-1.555 4.076S16.474 21 14.15 21h-4.3c-2.324 0-3.486 0-4.31-.667c-.826-.667-1.07-1.803-1.556-4.076z" opacity=".5"></path><path fill="currentColor" d="M8 11.25a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zM9.25 15a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75"></path><path fill="currentColor" fill-rule="evenodd" d="M14.665 2.33a.75.75 0 0 1 1.006.335l3 6a.75.75 0 1 1-1.342.67l-3-6a.75.75 0 0 1 .336-1.006m-5.33.001a.75.75 0 0 0-1.006.335l-3 6a.75.75 0 1 0 1.342.67l3-6a.75.75 0 0 0-.336-1.006" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <!-- <span class="h-[35px] rounded-[17px] bg-white inline-block text-[14px] font-semibold leading-[35px] px-3 min-w-[70px] text-center text-heading">+65%</span> -->
+                        <div class="flex flex-col justify-between items-end ">
+                          <span class="block text-[14px] font-play-regular text-bodyText text-gray-500">Total Orders</span>
+                          <h4 class="text-[22px] font-nunito-semiBold text-heading">+{{totalOrders}}</h4>
+                        </div>
+                      </div>
+
+                    </div>
+                  </a>
+                  <div class="flex justify-between items-center bg-[#f6f8fb] px-5 py-3">
+                    <div class="flex items-center gap-1">
+                      <div class="flex items-center">
+                        <svg class="-rotate-90 text-green-500 w-3" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z"></path>
+                        </svg>
+                        <span class="text-[12px] font-play-regular text-gray-400">0.3%</span>
+                    </div>
+                      <span class="text-[12px] font-play-regular text-gray-400">Last Month</span>
+                    </div>
+                    <a href="" class="text-[12px] font-play-bold text-gray-800">View More</a>
+                  </div>
+                </div>
+                <!--  -->
+                <div class="cashier-quickview bg-white  rounded-[16px] overflow-hidden  flex flex-col justify-between">
+                  <a class="p-5 block w-full" href="/report/accountsbalance">
+                    <div class=" ">
+                      <div class="flex justify-between items-center">
+                        <div class=" w-[56px] aspect-square min-w-[56px] rounded-[16px] flex justify-center items-center bg-blue-700/20 text-blue-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 text-blue-700" viewBox="0 0 24 24"><path fill="currentColor" d="M8.422 20.618C10.178 21.54 11.056 22 12 22V12L2.638 7.073l-.04.067C2 8.154 2 9.417 2 11.942v.117c0 2.524 0 3.787.597 4.801c.598 1.015 1.674 1.58 3.825 2.709z"></path><path fill="currentColor" d="m17.577 4.432l-2-1.05C13.822 2.461 12.944 2 12 2c-.945 0-1.822.46-3.578 1.382l-2 1.05C4.318 5.536 3.242 6.1 2.638 7.072L12 12l9.362-4.927c-.606-.973-1.68-1.537-3.785-2.641" opacity=".7"></path><path fill="currentColor" d="m21.403 7.14l-.041-.067L12 12v10c.944 0 1.822-.46 3.578-1.382l2-1.05c2.151-1.129 3.227-1.693 3.825-2.708c.597-1.014.597-2.277.597-4.8v-.117c0-2.525 0-3.788-.597-4.802" opacity=".5"></path><path fill="currentColor" d="m6.323 4.484l.1-.052l1.493-.784l9.1 5.005l4.025-2.011q.205.232.362.498c.15.254.262.524.346.825L17.75 9.964V13a.75.75 0 0 1-1.5 0v-2.286l-3.5 1.75v9.44A3 3 0 0 1 12 22c-.248 0-.493-.032-.75-.096v-9.44l-8.998-4.5c.084-.3.196-.57.346-.824q.156-.266.362-.498l9.04 4.52l3.387-1.693z"></path></svg>
+                          <!-- <svg xmlns="http://www.w3.org/2000/svg" class="w-8 text-blue-700" viewBox="0 0 24 24"><path fill="currentColor" d="M3.555 14.257c-.718-3.353-1.078-5.03-.177-6.143C4.278 7 5.993 7 9.422 7h5.156c3.43 0 5.143 0 6.044 1.114s.541 2.79-.177 6.143l-.429 2c-.487 2.273-.73 3.409-1.555 4.076S16.474 21 14.15 21h-4.3c-2.324 0-3.486 0-4.31-.667c-.826-.667-1.07-1.803-1.556-4.076z" opacity=".5"></path><path fill="currentColor" d="M8 11.25a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zM9.25 15a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75"></path><path fill="currentColor" fill-rule="evenodd" d="M14.665 2.33a.75.75 0 0 1 1.006.335l3 6a.75.75 0 1 1-1.342.67l-3-6a.75.75 0 0 1 .336-1.006m-5.33.001a.75.75 0 0 0-1.006.335l-3 6a.75.75 0 1 0 1.342.67l3-6a.75.75 0 0 0-.336-1.006" clip-rule="evenodd"></path></svg> -->
+                        </div>
+                        <!-- <span class="h-[35px] rounded-[17px] bg-white inline-block text-[14px] font-semibold leading-[35px] px-3 min-w-[70px] text-center text-heading">+65%</span> -->
+                        <div class="flex flex-col justify-between items-end ">
+                          <span class="block text-[14px] font-play-regular text-bodyText text-gray-500">Total Products</span>
+                          <h4 class="text-[22px] font-nunito-semiBold text-heading">+{{totalOrders}}</h4>
+                        </div>
+                      </div>
+
+                    </div>
+                  </a>
+                  <div class="flex justify-between items-center bg-[#f6f8fb] px-5 py-3">
+                    <div class="flex items-center gap-1">
+                      <div class="flex items-center">
+                        <svg class="-rotate-90 text-green-500 w-3" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z"></path>
+                        </svg>
+                        <span class="text-[12px] font-play-regular text-gray-400">0.3%</span>
+                    </div>
+                      <span class="text-[12px] font-play-regular text-gray-400">Last Month</span>
+                    </div>
+                    <a href="" class="text-[12px] font-play-bold text-gray-800">View More</a>
+                  </div>
+                </div>
+                <!--  -->
+                <div class="cashier-quickview bg-white  rounded-[16px] overflow-hidden  flex flex-col justify-between">
+                  <a class="p-5 block w-full" href="/report/accountsbalance">
+                    <div class=" ">
+                      <div class="flex justify-between items-center">
+                        <div class=" w-[56px] aspect-square min-w-[56px] rounded-[16px] flex justify-center items-center bg-blue-700/20 text-blue-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 text-blue-700" viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 7.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0"></path><path fill="currentColor" d="M19.5 7.5a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0m-15 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0" opacity=".4"></path><path fill="currentColor" d="M18 16.5c0 1.933-2.686 3.5-6 3.5s-6-1.567-6-3.5S8.686 13 12 13s6 1.567 6 3.5"></path><path fill="currentColor" d="M22 16.5c0 1.38-1.79 2.5-4 2.5s-4-1.12-4-2.5s1.79-2.5 4-2.5s4 1.12 4 2.5m-20 0C2 17.88 3.79 19 6 19s4-1.12 4-2.5S8.21 14 6 14s-4 1.12-4 2.5" opacity=".4"></path></svg>
+                          <!-- <svg xmlns="http://www.w3.org/2000/svg" class="w-8 text-blue-700" viewBox="0 0 24 24"><path fill="currentColor" d="M3.555 14.257c-.718-3.353-1.078-5.03-.177-6.143C4.278 7 5.993 7 9.422 7h5.156c3.43 0 5.143 0 6.044 1.114s.541 2.79-.177 6.143l-.429 2c-.487 2.273-.73 3.409-1.555 4.076S16.474 21 14.15 21h-4.3c-2.324 0-3.486 0-4.31-.667c-.826-.667-1.07-1.803-1.556-4.076z" opacity=".5"></path><path fill="currentColor" d="M8 11.25a.75.75 0 0 0 0 1.5h8a.75.75 0 0 0 0-1.5zM9.25 15a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75"></path><path fill="currentColor" fill-rule="evenodd" d="M14.665 2.33a.75.75 0 0 1 1.006.335l3 6a.75.75 0 1 1-1.342.67l-3-6a.75.75 0 0 1 .336-1.006m-5.33.001a.75.75 0 0 0-1.006.335l-3 6a.75.75 0 1 0 1.342.67l3-6a.75.75 0 0 0-.336-1.006" clip-rule="evenodd"></path></svg> -->
+                        </div>
+                        <!-- <span class="h-[35px] rounded-[17px] bg-white inline-block text-[14px] font-semibold leading-[35px] px-3 min-w-[70px] text-center text-heading">+65%</span> -->
+                        <div class="flex flex-col justify-between items-end ">
+                          <span class="block text-[14px] font-play-regular text-bodyText text-gray-500">Total Customers</span>
+                          <h4 class="text-[22px] font-nunito-semiBold text-heading">+{{totalOrders}}</h4>
+                        </div>
+                      </div>
+
+                    </div>
+                  </a>
+                  <div class="flex justify-between items-center bg-[#f6f8fb] px-5 py-3">
+                    <div class="flex items-center gap-1">
+                      <div class="flex items-center">
+                        <svg class="-rotate-90 text-green-500 w-3" data-slot="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z"></path>
+                        </svg>
+                        <span class="text-[12px] font-play-regular text-gray-400">0.3%</span>
+                    </div>
+                      <span class="text-[12px] font-play-regular text-gray-400">Last Month</span>
+                    </div>
+                    <a href="" class="text-[12px] font-play-bold text-gray-800">View More</a>
+                  </div>
+                </div>
+              </div>
+              <!--  -->
+              <div class="grid grid-cols-3 gap-3">
+                <div class="w-full p-6 bg-white rounded-[16px] col-span-2">
+                <header>
+                  <h1 class="text-gray-600 font-nunito-semiBold">Orders for the Last 48 Hours</h1>
+                </header>
+                <div class=" h-[235px] overflow-hidden">
+                  <div id="chartBar">
+                    <apx-chart
+                      [series]="chartOptions?.series"
+                      [chart]="chartOptions?.chart"
+                      [dataLabels]="chartOptions?.dataLabels"
+                      [plotOptions]="chartOptions?.plotOptions"
+                      [yaxis]="chartOptions?.yaxis"
+                      [xaxis]="chartOptions?.xaxis"
+                      [fill]="chartOptions?.fill"
+                      [legend]="chartOptions?.legend"
+                      [colors]="chartOptions?.colors"
+                      [grid]="chartOptions?.grid"
+                    ></apx-chart>
+                  </div>
+                </div>
+              </div>
+              <!--  -->
+              <div class="rounded-[16px] bg-white p-6">
+                <header>
+                  <h1 class="text-gray-600 font-nunito-semiBold">The total number of completed orders</h1>
+                </header>
+                <div id="chartRadialBar">
+                  <apx-chart
+                    [series]="chartOptionsRadialBar?.series"
+                    [chart]="chartOptionsRadialBar?.chart"
+                    [plotOptions]="chartOptionsRadialBar?.plotOptions"
+                    [labels]="chartOptionsRadialBar?.labels"
+                    [fill]="chartOptionsRadialBar?.fill"
+                    [stroke]="chartOptionsRadialBar?.stroke"
+                  ></apx-chart>
+                </div>
+              </div>
+              </div>
+              <!--  -->
+            </div>
+          </div>
+          <div class="flex flex-wrap mt-4  bg-white rounded-[16px]">
+            <div class="w-full max-w-full p-3 flex-0">
+              <div
+                class="relative flex flex-col min-w-0 break-words bg-white border-0  g-slate-850 hadow-dark-xl rounded-2xl bg-clip-border">
+                <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0 ">
+                  <h6 class="text-gray-600 font-nunito-semiBold">Top Selling Products</h6>
+                </div>
+                <div class="flex-auto p-0 pb-2 ">
+                  <div class="p-0 overflow-x-auto ps">
+                    <table
+                      class="items-center justify-center w-full mb-0 align-top border-collapse border-gray-200 order-white/40 ext-white text-slate-500">
+                      <thead class="align-bottom">
+                        <tr>
+                          <th
+                            class="px-6 py-3 font-nunito-semiBold uppercase align-middle border-b border-gray-200 border-solid text-xxs text-slate-400 opacity-70 whitespace-nowrap tracking-none text-left">
+                            Product</th>
+                          <th
+                            class="py-3 pl-2 pr-6 font-nunito-semiBold uppercase align-middle border-b border-gray-200 border-solid text-xxs text-slate-400 opacity-70 whitespace-nowrap tracking-none">
+                            Value</th>
+                          <th
+                            class="px-6 py-3 font-nunito-semiBold text-center uppercase align-middle border-b border-gray-200 border-solid text-xxs text-slate-400 opacity-70 whitespace-nowrap tracking-none">
+                            Ads Spent</th>
+                          <th
+                            class="px-6 py-3 font-nunito-semiBold text-center uppercase align-middle border-b border-gray-200 border-solid text-xxs text-slate-400 opacity-70 whitespace-nowrap tracking-none">
+                            Refunds</th>
+                        </tr>
+                      </thead>
+                      <tbody class="align-top">
+                        <ng-container *ngFor="let pr of topProducts">
+                          <tr class="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-solid [&:not(:last-child)]:order-white/40 [&:not(:last-child)]:border-inherit">
+                            <td
+                              class="p-2 align-middle  whitespace-nowrap ">
+                              <div class="flex px-4 py-1">
+                                <div>
+                                  <img
+                                    class="inline-flex items-center justify-center w-12 min-w-12 h-12 mr-4 text-base object-cover text-white transition-all duration-200 ease-in-out rounded-xl"
+                                    [src]="environment?.Upload?.apiUrl + pr?.photos[0]?.file?.url"
+                                    alt="product image">
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                  <h6 class="mb-0 text-sm leading-normal ext-white truncate w-32">{{pr?.title}}</h6>
+                                  <p class="mb-0 text-sm font-semibold leading-normal text-slate-400">
+                                    <span class="text-emerald-500">{{pr?.total_sold}}</span>
+                                    orders
+                                  </p>
+                                </div>
+                              </div>
+                            </td>
+                            <td
+                              class="p-2 align-middle  whitespace-nowrap">
+                              <p class="mb-0 text-sm font-semibold leading-normal text-center">{{calcSome(pr).toFixed(2)}} MAD</p>
+                            </td>
+                            <td
+                              class="p-2 text-center align-middle whitespace-nowrap">
+                              <p class="mb-0 text-sm font-semibold leading-normal">$9.500</p>
+                            </td>
+                            <td
+                              class="p-2 text-right align-middle whitespace-nowrap">
+                              <div class="flex items-center justify-center px-4 py-1">
+                                <p class="mb-0 text-sm font-semibold leading-normal">13</p>
+                              </div>
+                            </td>
+                          </tr>
+                        </ng-container>
+
+
+                      </tbody>
+                    </table>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                      <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                      <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-3 flex flex-col ">
+          <div class="aspect-square bg-white rounded-[16px]">
+
+          </div>
+          <div class="w-full grow bg-white rounded-[16px] mt-2">
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>

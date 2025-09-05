@@ -1,0 +1,282 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+@font-face {
+  font-family: 'Play-Regular';
+  src: url('./assets/fonts/Play-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Play-Bold';
+  src: url('./assets/fonts/Play-Bold.ttf');
+}
+
+// import font family Inter
+@font-face {
+  font-family: 'Nunito-Light';
+  src: url('./assets/fonts/Nunito-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito-Regular';
+  src: url('./assets/fonts/Nunito-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito-Medium';
+  src: url('./assets/fonts/Nunito-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito-semiBold';
+  src: url('./assets/fonts/Nunito-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Nunito-Bold';
+  src: url('./assets/fonts/Nunito-Bold.ttf');
+}
+
+
+
+// import font family Cairo
+@font-face {
+  font-family: 'Cairo-Light';
+  src: url('./assets/fonts/Cairo-Light.ttf');
+}
+
+@font-face {
+  font-family: 'Cairo-Regular';
+  src: url('./assets/fonts/Cairo-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Cairo-Medium';
+  src: url('./assets/fonts/Cairo-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Cairo-semiBold';
+  src: url('./assets/fonts/Cairo-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Cairo-Bold';
+  src: url('./assets/fonts/Cairo-Bold.ttf');
+}
+
+
+// custom body scrollbar
+body,
+.scrollbar_{
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar,
+.scrollbar_::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 4px;
+
+}
+
+/* Track */
+body::-webkit-scrollbar-track,
+.scrollbar_::-webkit-scrollbar-track {
+  background: rgba(233, 233, 233, 0.4);
+  border-radius: 4px;
+}
+body::-webkit-scrollbar-track,
+.scrollbar_:hover::-webkit-scrollbar-track {
+  background: rgba(233, 233, 233, 1);
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb,
+.scrollbar_::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.4);
+  border-radius: 4px;
+}
+body::-webkit-scrollbar-thumb,
+.scrollbar_:hover::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 1);
+}
+
+/*
+  * Handle on hover
+*/
+body::-webkit-scrollbar-thumb:hover,
+.scrollbar_::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/*
+  * hide scrollbar from body
+*/
+.hide-scrollBar{
+  overflow-y: hidden;
+}
+
+
+
+
+// ng select
+
+// .ng-select.ng-select-single .ng-select-container {
+//   height: 48px;
+// }
+// .ng-select .ng-select-container {
+//   --tw-border-opacity: 1;
+//   border: 1px solid rgb(209 213 219 / var(--tw-border-opacity));
+//   border-radius: 8px;
+// }
+
+
+
+
+// custom body scrollbar
+body,
+.scrollbar_{
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar,
+.scrollbar_::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 4px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track,
+.scrollbar_::-webkit-scrollbar-track {
+  background: rgba(233, 233, 233, 0.4);
+  border-radius: 4px;
+}
+body::-webkit-scrollbar-track,
+.scrollbar_:hover::-webkit-scrollbar-track {
+  background: rgba(233, 233, 233, 1);
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb,
+.scrollbar_::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.4);
+  border-radius: 4px;
+}
+body::-webkit-scrollbar-thumb,
+.scrollbar_:hover::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 1);
+}
+
+/*
+  * Handle on hover
+*/
+body::-webkit-scrollbar-thumb:hover,
+.scrollbar_::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/*
+  * hide scrollbar from body
+*/
+.hide-scrollBar{
+  overflow-y: hidden;
+}
+
+
+
+
+
+
+
+
+$height : 22px;
+$width :44px;
+$space: 3px;
+
+
+/*
+  * hide scrollbar from body
+*/
+
+.checkbox{
+  appearance: none;
+  width: $width ;
+  height: $height;
+  // border:1px solid #aaa;
+  border-radius:$height;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: #fff;
+  border: 1px solid rgb(41, 68, 218);
+  cursor: pointer;
+
+  &::before{
+    content: '';
+    width: calc($height - $space * 2);
+    left : $space;
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgb(41, 68, 218);
+    transition: all 0.4s ease-in-out;
+  }
+  &:checked{
+    background: rgb(41, 68, 218);
+    // box-shadow: 4px 4px 16px 0px rgb(16, 163, 41);
+    box-shadow: rgba(24, 23, 29, 0.4) 0px 3px 12px -2px, rgb(0, 0, 0,0.3) 0px 3px 7px -3px;
+    &::before{
+      transform: translateX(calc($width - $height - 1px));
+      background: #fff;
+    }
+  }
+
+}
+
+
+.spinner_ {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner_::before,
+.spinner_::after {
+  border: 3px solid #fdfdfd;
+  border-radius: 50%;
+  position: absolute;
+  content: '';
+  display: block;
+}
+
+.spinner_::before {
+  width: 14px;
+  height: 14px;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  animation: spinner_-1o3y8q 0.75s infinite linear reverse;
+}
+
+.spinner_::after {
+  animation: spinner_-1o3y8q 0.5s infinite linear;
+  height: 24px;
+  width: 24px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+@keyframes spinner_-1o3y8q {
+  to {
+     transform: rotate(360deg);
+  }
+}

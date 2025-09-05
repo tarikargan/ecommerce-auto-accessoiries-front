@@ -1,0 +1,104 @@
+<div class="w-full relative ">
+  <div class="w-full relative scale-100 bg-white rounded-lg p-6 grow overflow-y-auto flex flex-col mt-[50px]" style="height: calc(100vh - 148px) ;">
+    <div class="flex justify-between items-center pb-5 mb-5">
+        <div class=" md:col-span-6 sm:col-span-12">
+            <h3 class="font-nunito-semiBold text-[20px] text-gray-700">Quantite par Taille</h3>
+          </div>
+          <div class="md:col-span-6 sm:col-span-12">
+            <div class="flex justify-end items-center gap-2">
+              <div class="inline-block relative">
+                <input type="text" placeholder="Recherche ..." class="border rounded-medium w-[280px] px-3 py-2 outline-none">
+                <svg class="w-5 absolute right-4 top-[50%] -translate-y-[50%] text-gray-400 pointer-events-none" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+              </div>
+              <a routerLink="/admin/options/productions" class="h-[38px] flex justify-center items-center gap-2 px-4 rounded-medium text-[14px] font-nunito-regular bg-orange-100 text-orange-500 outline-none">
+                <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+    <div>
+    <div class="grow overflow-y-auto scrollbar_ relative flex flex-col" *ngIf="!loading">
+      <ng-container *ngIf="quTailles.length > 0;">
+          <table class="w-full table-auto rounded-t-md ">
+            <thead>
+                <tr class="rounded-md  uppercase text-sm leading-normal" >
+                    <th class="p-3 text-left text-gray-400 font-nunito-regular text-sm lowercase first-letter:uppercase">Quantite Estime</th>
+                    <th class="p-3 text-left text-gray-400 font-nunito-regular text-sm lowercase first-letter:uppercase">quantite livre</th>
+                    <th class="p-3 text-left text-gray-400 font-nunito-regular text-sm lowercase first-letter:uppercase">couleur</th>
+                    <th class="p-3 text-left text-gray-400 font-nunito-regular text-sm lowercase first-letter:uppercase">Taille</th>
+                    <th class="p-3 text-left text-gray-400 font-nunito-regular text-sm lowercase first-letter:uppercase">Entrepot</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+                <tr *ngFor="let item of quTailles;let i = index" class="odd:bg-indigo-50/30">
+                  <td class="p-3 ">
+                      <p class="text-[14px] font-nunito-medium text-left text-gray-500">{{ item?.quantite }}</p>
+                  </td>
+                  <td class="p-3 ">
+                      <p class="text-[14px] font-nunito-medium text-left text-gray-500">{{ item?.quantite_livre }}</p>
+                  </td>
+                  <td class="p-3 ">
+                      <ng-container *ngIf="item?.color_type == 'exist';else notExist">
+                        <div *ngIf="item?.color == 'white'" class="h-6 w-12 rounded-md bg-white-500 border-2 hover:border-blue-300 focus:outline-none"></div>
+                        <div *ngIf="item?.color == 'yellow'" class="h-6 w-12 rounded-md bg-yellow-500 border-2 hover:border-blue-300 focus:outline-none"></div>
+                        <div *ngIf="item?.color == 'orange'" class="h-6 w-12 rounded-md bg-orange-500 border-2 hover:border-blue-300 focus:outline-none"></div>
+                        <div *ngIf="item?.color == 'red'" class="h-6 w-12 rounded-md bg-red-500 border-2 hover:border-blue-300 focus:outline-none"></div>
+                        <div *ngIf="item?.color == 'blue'" class="h-6 w-12 rounded-md bg-blue-500 border-2 hover:border-blue-300 focus:outline-none"></div>
+                        <div *ngIf="item?.color == 'green'" class="h-6 w-12 rounded-md bg-green-500 border-2 hover:border-blue-300 focus:outline-none"></div>
+                        <div *ngIf="item?.color == 'black'" class="h-6 w-12 rounded-md bg-black border-2 hover:border-blue-300 focus:outline-none"></div>
+                      </ng-container>
+                      <ng-template #notExist>
+                        <p class="font-nunito-regular text-sm text-gray-500">{{ item?.color }}</p>
+                      </ng-template>
+                  </td>
+                  <td class="p-3 ">
+                      <p class="text-[14px] font-nunito-medium text-left text-gray-500">{{ item?.taille?.name}}</p>
+                  </td>
+                  <td class="p-3 ">
+                      <p class="text-[14px] font-nunito-medium text-left text-gray-500">{{ item?.stock?.name}}</p>
+                  </td>
+
+                  <td class="p-3 text-left flex justify-end">
+                    <ul class="relative flex items-center gap-3divide-y rounded-medium  z-50">
+                      <li>
+                        <button (click)="editProduct(item, i)" class="flex p-2 text-orange-400">
+                          <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        </button>
+                      </li>
+                      <li>
+                        <button (click)="deleteProduct(item.id)" class="flex p-2 text-red-500" >
+                          <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                      </li>
+                  </ul>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+      </ng-container>
+    </div>
+    <!-- no result -->
+    <ng-container *ngIf="!loading">
+        <div class="fixed right-2 bottom-2">
+          <button (click)="ToogleQuantite()" class=" hover:bg-indigo-600 bg-indigo-500 w-[45px] origin-center aspect-square rounded-full grid place-content-center text-white px-6 py-2 ">
+            <svg class="w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+            </svg>
+          </button>
+        </div>
+    </ng-container>
+    <!-- loading  -->
+    <ng-container *ngIf="loading">
+      <div class="w-full  flex justify-center items-center grow  pr-1 " >
+        <!-- <app-content-loading></app-content-loading> -->
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+
+<div *ngIf="activeFormquTaille" class="fixed top-0 w-full h-screen z-[999999] left-0 bg-black/40 flex justify-end items-center">
+    <div class="w-[70%] max-w-[700px]">
+      <app-productionqutaille-form [qutaille]="editquTaille_" [productionId]="productionID" (closeForm)="ToogleQuantite()" [eventype]="eventType" (updatedqutaille)="updatedquTaille($event)" (addedqutaille)="addedquTaille($event)"></app-productionqutaille-form>
+    </div>
+</div>

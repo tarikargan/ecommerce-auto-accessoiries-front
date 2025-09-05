@@ -1,0 +1,17 @@
+<div class="row preview" *ngIf="data">
+  <div class="col-4 image">
+    <a [href]="youtubeService.getVideoLink(data.items[0].id) | safe: 'resourceUrl'" target="_blank">
+      <img [src]="data.items[0].snippet.thumbnails.default.url">
+      <!-- <i class="material-icons">play_circle_outline</i> -->
+    </a>
+  </div>
+  <div class="col-8 linkContent">
+    <h3>
+      <a [href]="youtubeService.getVideoLink(data.items[0].id) | safe: 'resourceUrl'" target="_blank">
+        {{ data.items[0].snippet.title }}
+      </a>
+    </h3>
+    <h4>{{ data.items[0].snippet.channelTitle }}</h4>
+    <h5>{{ durationToString(data.items[0].contentDetails.duration) }}</h5>
+  </div>
+</div>

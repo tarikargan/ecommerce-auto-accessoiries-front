@@ -1,0 +1,48 @@
+<section class="min-h-screen flex items-stretch text-white ">
+  <div class="w-full flex justify-center items-center bg-gray-500 bg-no-repeat bg-cover bg-center relative" style="background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url(../../../../assets/images/bg.png);background-position: top center; background-size: cover;">
+      <div class="w-[500px] z-10 bg-white rounded-2xl p-10">
+        <form [formGroup]="loginForm" class="w-full">
+          <div *ngIf="errorMessage" id="toast-warning" class="flex items-center w-full p-4 text-red-500 bg-red-500/20 rounded-lg shadow " role="alert">
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+                </svg>
+                <span class="sr-only">Warning icon</span>
+            </div>
+            <div class="ms-3 text-sm font-normal">{{ errorMessage }}</div>
+          </div>
+          <!-- Email -->
+          <div class="pb-2 pt-4">
+            <label class="text-gray-700 text-sm mb-1 relative block " for="">Adresse E-mail</label>
+              <input type="email" formControlName="email" name="email" id="email" class="block w-full text-black h-[54px] border p-4 text-sm rounded-lg outline-none bg-transparent outline outline-offset-1 outline-violet-100 focus:outline-violet-400">
+          </div>
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['email'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['email'].errors?.['required'] && (form.controls['email'].dirty || form.controls['email'].touched)">{{ 'site.Authentification.General.required'  }} </div>
+                <div class="text-left mt-1" *ngIf="form.controls['email'].errors?.['email'] && (form.controls['email'].dirty || form.controls['email'].touched)"> Adresse e-mail invalide.</div>
+            </ng-container>
+          </div>
+          <div class="pb-2 pt-4">
+            <label class="text-gray-700 text-sm mb-1 relative block " for="">Mot de passe</label>
+              <input formControlName="password" class="block w-full h-[54px] border p-4 text-black rounded-lg outline-none bg-transparent outline outline-offset-1 outline-violet-100  focus:outline-violet-400 text-sm" type="password" name="password" id="password">
+          </div>
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['password'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['password'].errors?.['required'] && (form.controls['password'].dirty || form.controls['password'].touched)">{{ 'site.Authentification.General.required'  }} </div>
+                <div class="text-left mt-1" *ngIf="form.controls['password'].errors?.['password'] && (form.controls['password'].dirty || form.controls['password'].touched)"> Adresse e-mail invalide.</div>
+            </ng-container>
+          </div>
+
+          <div class="pb-2 pt-4 mt-3">
+              <button class="uppercase h-[60px] block w-full p-3 text-sm rounded-full bg-indigo-600 hover:bg-indigo-700 focus:outline-none" (click)="signIn()">Connectez-vous</button>
+          </div>
+      </form>
+      </div>
+  </div>
+</section>
+
+
+
+
+
+

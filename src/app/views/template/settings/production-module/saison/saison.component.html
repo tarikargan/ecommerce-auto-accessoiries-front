@@ -1,0 +1,103 @@
+<div class="w-full relative">
+  <section class="w-full relative bg-white rounded-lg p-6 grow overflow-y-auto flex flex-col mt-[50px]" style="height: calc(100vh - 148px) ;">
+    <div class="flex justify-between items-center pb-5 mb-5">
+        <div class=" md:col-span-6 sm:col-span-12">
+            <h3 class="font-bold text-[24px] text-gray-700">Saisons</h3>
+          </div>
+          <div class="md:col-span-6 sm:col-span-12">
+            <div class="flex justify-end items-center gap-1">
+              <div class="inline-block relative">
+                <input type="text" placeholder="Recherche ..." class="border rounded-medium w-[280px] px-3 py-2 outline-none">
+                <svg class="w-5 absolute right-4 top-[50%] -translate-y-[50%] text-gray-400 pointer-events-none" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path></svg>
+              </div>
+              <button (click)="addFr()"
+              class="h-[40px] flex justify-center items-center gap-2 px-4 rounded-medium text-[14px] font-nunito-regular bg-indigo-500 text-white outline-none">
+              <svg fill="none" class="w-5" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+              </svg>
+              Ajouter
+            </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="grow overflow-y-auto scrollbar_ relative flex flex-col" *ngIf="!loading">
+          <ng-container *ngIf="Saisons.length > 0; else noResult">
+              <table class="w-full table-auto rounded-t-md ">
+                <thead>
+                    <tr class="rounded-md  uppercase text-sm leading-normal">
+                        <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-[14px] first-letter:uppercase">Titre</th>
+                        <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-[14px] first-letter:uppercase">date de début </th>
+                        <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-[14px] first-letter:uppercase">date de fin</th>
+                        <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-[14px] first-letter:uppercase"></th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    <tr *ngFor="let item of Saisons;let i = index" class=" hover:bg-gray-light odd:bg-indigo-50/40">
+                        <td class="p-3 ">
+                          <div class="flex items-center gap-2">
+                            <p class="text-[14px] font-nunito-medium text-left text-gray-900">{{ item?.title }}</p>
+                          </div>
+                       </td>
+                        <td class="p-3 ">
+                          <div class="flex items-center gap-2">
+                            <p class="text-[14px] font-nunito-medium text-left text-gray-900">{{ item?.start_date | date:'longDate' }}</p>
+                          </div>
+                       </td>
+                        <td class="p-3 ">
+                          <div class="flex items-center gap-2">
+                            <p class="text-[14px] font-nunito-medium text-left text-gray-900">{{ item?.end_date | date:'longDate' }}</p>
+                          </div>
+                       </td>
+
+                        <td class="p-3 text-left flex justify-end">
+                          <div (click)="toggeDropDown(item.id)" class=" relative z-20 aspect-square h-[30px] rounded-full cursor-pointer p-1 mr-2 {{ activeDropDown == item.id ? 'bg-red-50 text-red-500':'text-green_color hover:bg-green-50' }}">
+                            <svg *ngIf="activeDropDown !== item.id" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+                            <svg *ngIf="activeDropDown == item.id" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <ul *ngIf="activeDropDown == item.id" class="absolute right-full top-0 divide-y bg-white rounded-medium border z-50">
+                                <li>
+                                  <button (click)="editFournisseur(item, i)" class="flex items-center gap-2 py-3 px-5 text-gray-700">
+                                    <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                    Modifier
+                                  </button>
+                                </li>
+                                <li>
+                                  <button (click)="deleteFournisseur(item.id)" class="flex items-center gap-2 py-3 px-5" >
+                                    <svg class="w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Supprimer
+                                  </button>
+                                </li>
+                            </ul>
+                          </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- </form> -->
+          </ng-container>
+        </div>
+        <!-- no result -->
+        <ng-template #noResult>
+          <div class="w-full flex justify-center items-center grow pr-1 ">
+            <div class="p-6 flex flex-col items-center">
+              <img src="assets/images/Noitemfound.svg" class="scale-70" alt="">
+              <h3 class="text-[14px] font-nunito-medium text-gray-500 mt-2">Aucun Saison</h3>
+            </div>
+           </div>
+       </ng-template>
+         <!-- loading  -->
+       <ng-container *ngIf="loading">
+        <div class="w-full  flex justify-center items-center grow  pr-1 " >
+          <!-- <app-content-loading></app-content-loading> -->
+        </div>
+       </ng-container>
+  </section>
+</div>
+<app-popup *ngIf="showForm">
+  <app-saison-form [saison]="editFournisseur_" [eventype]="eventType" (updatedSaison)="updatedFournisseur($event)" (addedSaison)="addedFournisseur($event)" (closeForm)="closeForm()" class="w-[80%] max-w-[600px]"></app-saison-form>
+</app-popup>
+
+
+
+

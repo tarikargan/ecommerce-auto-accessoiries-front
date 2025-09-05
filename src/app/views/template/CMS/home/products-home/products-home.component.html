@@ -1,0 +1,135 @@
+
+
+  <!-- manager -->
+  <div class="w-full relative">
+    <div class="flex justify-between items-center mb-3 mt-5">
+    <h1 class="text-[22px] font-play-bold text-gray-800">Les produits</h1>
+    <app-button-primary [btn_name]="'Ajouter un produit'" routerLink="/admin/products" ></app-button-primary>
+  </div>
+  <section class="w-full bg-white relative rounded-[16px] pt-6 grow overflow-y-auto flex flex-col " style="min-height: calc(100vh - 180px) ;">
+    <div class="grow overflow-y-auto scrollbar_ relative flex flex-col" *ngIf="!loading">
+      <ng-container >
+        <div class="dataTable-top mb-5 flex justify-between items-center px-6">
+          <h1 class="text-gray-600 font-nunito-bold">All Product List</h1>
+          <div class="justify-end flex items-center gap-1">
+            <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
+              <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+                <svg class="w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+                </svg>
+              </span>
+              <input type="text" (keyup)="handleSearch($event)" class="pl-9 w-[280px] h-[32px] text-[12px] font-play-regular rounded-[0.5rem] border border-solid border-slate-700/30 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
+            </div>
+          </div>
+        </div>
+        <div *ngIf="products.length > 0; else noResult" class="relative w-full grow overflow-y-auto scrollbar_ pr-1 ">
+          <table class="w-full table-auto rounded-t-md ">
+            <thead>
+              <tr class="rounded-md  uppercase text-sm leading-normal border-b border-t border-gray-200">
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase ">produit</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Ref</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Prix</th>
+                <th class="p-3 text-center text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Quantite</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">Categorie</th>
+                <th class="p-3 text-left text-gray-400 font-nunito-regular lowercase text-sm first-letter:uppercase">display on home</th>
+
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+              <tr *ngFor="let item of products;let i = index" class=" hover:bg-gray-light  border-b border-gray-200">
+                <td class="p-3 ">
+                  <div class="flex items-center gap-2">
+                    <ng-container *ngIf="item?.photos.length > 0;else noImg">
+                      <span class="w-[56px] min-w-[56px] aspect-square rounded-md bg-gray-100 relative flex justify-center items-center">
+                        <img [src]="environment?.Upload?.apiUrl + item?.photos[0]?.file?.url" class="h-full w-full object-cover rounded-md" alt="">
+                      </span>
+                    </ng-container>
+
+                    <ng-template #noImg>
+                      <span class="w-[56px] min-w-[56px] aspect-square rounded-md bg-gray-100 relative flex justify-center items-center">
+                        <img src="assets/images/svg/upload.svg" class="h-full w-full object-cover rounded-md" alt="">
+                      </span>
+                    </ng-template>
+                    <div>
+                      <p class="text-[15px] font-play-regular text-left text-titleColor max-w-[150px] truncate">{{ item?.title }}</p>
+                      <div *ngIf="getSizes(item).length > 0" class="flex flex-wrap gap-2">
+                        <span class="font-play-bold text-gray-600 text-[14px]">Size: </span> <span class="font-play-regular text-[14px] uppercase text-gray-500" *ngFor="let sz of getSizes(item)">{{sz}}</span>
+
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.ref}}</p>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.price}}.00 Dh</p>
+                </td>
+                <td class="p-3 ">
+                  <div class="flex justify-center gap-2 items-center">
+                    <div>
+                      <p class="{{ calcQuantity(item?.quantite_taille).quantite == 0 || calcQuantity(item?.quantite_taille).quantite?.left == 0  ? 'line-through text-red-400': 'text-[#313b5e]' }} text-[14px] font-play-regular ">{{ calcQuantity(item?.quantite_taille).quantite }} Item Left</p>
+                      <p *ngIf="calcQuantity(item?.quantite_taille).quantite > 0" class="text-[14px] font-play-regular text-[#5d7186]">{{ calcQuantity(item?.quantite_taille).sold }} Sold</p>
+                      <!-- <p *ngIf="calcQuantity(item?.quantite_taille).quantite > 0" class="text-[14px] font-play-regular text-[#5d7186]">{{ calcQuantity(item?.quantite_taille).sold }} Sold</p> -->
+                      <a href="/admin/products/{{ item?.id }}/quantite-taille" class="relative flex items-center gap-1 font-play-bold text-[13px] text-blue-900 whitespace-nowrap">
+                        <svg class="w-[14px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                        see more
+                        <!-- <svg *ngIf="calcQuantity(item?.quantite_taille)?.quantite > 0" class="w-[14px]" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> -->
+                      </a>
+                    </div>
+                  </div>
+                </td>
+                <td class="p-3 ">
+                  <p class="text-[14px] font-nunito-medium text-left text-gray-600">{{ item?.category?.name}}</p>
+                </td>
+                <td class="p-3 ">
+                  <!-- {{ item?.status }} -->
+                  <input type="checkbox" class="checked-publish checkbox" id="checked-publish" [checked]="item?.display_on_home" name="" id="" (change)="handleChangeStatus($event, item?.id)">
+                  <!-- <span class="text-[12px] font-nunito-regular text-red-500 opacity-80 mt-2" *ngIf="calcQuantity(item?.quantite_taille)?.left == 0">en rupture de stock</span> -->
+                </td>
+
+                <td class="p-3">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- pagination -->
+          <div class="flex justify-end px-5 py-5">
+            <div class="flex items-center justify-center  border rounded-[8px] divide-x-[1px]" *ngIf="meta?.links.length > 3">
+              <ng-container *ngFor="let item of meta?.links; let i = index">
+                <button *ngIf="i == 0 " (click)="handlePagination(item?.url)" class="h-[35px] px-3 font-nunito-medium text-[13px]  flex justify-center items-center {{ item?.active ? 'text-white bg-blue-500':' text-gray-500 bg-gray-100'}}  {{ item?.url == null ? 'opacity-40 pointer-events-none':'' }}">
+                 Previous
+                </button>
+                <button *ngIf="i !== 0 && i !== (meta?.links.length - 1)" (click)="handlePagination(item?.url)" [innerHTML]="item?.label" class="w-[35px] aspect-square  flex justify-center items-center {{ item?.active ? 'text-white bg-gratext-gray-500':' text-gray-500 bg-gray-100'}}"></button>
+                <button *ngIf="i == (meta?.links.length - 1)"(click)="handlePagination(item?.url)" class="h-[35px] px-3  font-nunito-medium text-[13px]   flex justify-center items-center {{ item?.active ? 'text-white bg-gratext-gray-500':' text-blue-500 bg-gray-100'}} {{ item?.url == null ? 'opacity-40 pointer-events-none':'' }}">
+                 Next
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+    </div>
+    <!-- <section *ngIf="activeQuTailleArea">
+          <app-product-quantitetaille (closeForm)="closeQuTaille()" [productID]="quantiteTailleId"></app-product-quantitetaille>
+        </section> -->
+    <!-- no result -->
+    <ng-template #noResult>
+      <div class="w-full flex justify-center items-center grow pr-1 ">
+        <div class="p-6 flex flex-col items-center">
+          <img src="assets/images/Noitemfound.svg" class="scale-70" alt="">
+          <h3 class="text-[14px] font-nunito-medium text-gray-500 mt-2">Aucun Produit</h3>
+        </div>
+      </div>
+    </ng-template>
+    <!-- loading  -->
+    <ng-container *ngIf="loading">
+      <div class="w-full  flex justify-center items-center grow  pr-1 ">
+        <app-content-loading></app-content-loading>
+      </div>
+    </ng-container>
+  </section>
+</div>
+

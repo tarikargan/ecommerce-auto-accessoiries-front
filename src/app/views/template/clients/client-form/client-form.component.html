@@ -1,0 +1,121 @@
+<div  class="w-full h-screen  bg-white rounded-l-md relative">
+
+  <header class="relative w-full ">
+    <div class="w-full relative flex justify-between items-center mb-5 shadow-lg shadow-gray-300/40 p-10 border-b">
+      <h1 class="text-[18px] whitespace-nowrap font-nunito-bold">{{ eventype == 'add' ? 'Ajouter Clients':'Modification Clients' }}</h1>
+      <div class=" flex items-center gap-1 ">
+        <button type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-regular text-gray-800 hover:bg-gray-100 cursor-pointer" (click)="closePopup()">Annuler</button>
+        <button *ngIf="eventype == 'add'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-regular text-white bg-valide_bg cursor-pointer" (click)="save()">
+          <ng-container *ngIf="!loading;else loading_">
+            Ajouter
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+        <button *ngIf="eventype == 'edit'" type="submit" class="px-10 py-3 rounded-md text-[14px] font-nunito-regular text-white bg-orange-400 cursor-pointer" (click)="update()">
+          <ng-container *ngIf="!loading;else loading_">
+          Modifier
+          </ng-container>
+          <ng-template #loading_>
+            <div class="spinner_ mr-3"></div>
+          </ng-template>
+          </button>
+      </div>
+    </div>
+  </header>
+  <form [formGroup]="clientForm" class="w-full relative mt-12 px-10 pb-10" >
+      <div class="grid grid-cols-2 gap-2">
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Nom</label>
+          <input formControlName="nom" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['nom'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['nom'].errors?.['required'] && (form.controls['nom'].dirty || form.controls['nom'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+        <!--  -->
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Prenom</label>
+          <input formControlName="prenom" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['prenom'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['prenom'].errors?.['required'] && (form.controls['prenom'].dirty || form.controls['prenom'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="mt-2">
+        <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Address</label>
+        <textarea formControlName="address" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" rows="2"></textarea>
+        <div class="text-[13px] relative text-red-500" *ngIf="form.controls['address'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['address'].errors?.['required'] && (form.controls['address'].dirty || form.controls['address'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <label for="" class="text-gray-800 font-nunito-regular text-[13px]">ville</label>
+        <input formControlName="ville" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+        <div class="text-[13px] relative text-red-500" *ngIf="form.controls['ville'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['ville'].errors?.['required'] && (form.controls['ville'].dirty || form.controls['ville'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Tele</label>
+          <input formControlName="tele" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['tele'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['tele'].errors?.['required'] && (form.controls['tele'].dirty || form.controls['tele'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Whatsapp</label>
+          <input formControlName="whatsapp" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+          <div class="text-[13px] relative text-red-500" *ngIf="form.controls['whatsapp'].invalid">
+            <ng-container>
+                <div class="text-left mt-1" *ngIf="form.controls['whatsapp'].errors?.['required'] && (form.controls['whatsapp'].dirty || form.controls['whatsapp'].touched)">This field is required</div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Note</label>
+        <input formControlName="note" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+        <div class="text-[13px] relative text-red-500" *ngIf="form.controls['note'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['note'].errors?.['required'] && (form.controls['note'].dirty || form.controls['note'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <label for="" class="text-gray-800 font-nunito-regular text-[13px]">Taille</label>
+        <input formControlName="taille" class="focus:shadow-primary-outline text-sm leading-5.6 ease block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+        <div class="text-[13px] relative text-red-500" *ngIf="form.controls['taille'].invalid">
+          <ng-container>
+              <div class="text-left mt-1" *ngIf="form.controls['taille'].errors?.['required'] && (form.controls['taille'].dirty || form.controls['taille'].touched)">This field is required</div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="mt-5 flex justify-between">
+        <label for="checked-publish " class="flex text-gray-800 font-nunito-regular text-[14px]">Ajoutez-le a la liste rouge?</label>
+        <input type="checkbox" class="checked-publish checkbox" id="checked-publish" formControlName="liste_rouge" name="" id="">
+      </div>
+
+
+
+  </form>
+</div>

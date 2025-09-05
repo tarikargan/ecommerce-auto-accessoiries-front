@@ -1,0 +1,48 @@
+
+<div class="relative w-full pl-5 pt-[100px]">
+
+  <div class="w-full bg-white rounded-xl p-6 flex justify-between shadow-lg shadow-black/5">
+      <div class="flex gap-2 items-center">
+           <div class="w-[74px] aspect-square rounded-lg shadow-lg shadow-black/10 overflow-hidden  bg-slate-300">
+            <img src="" alt="">
+           </div>
+
+           <div>
+              <h3 class="font-nunito-semiBold text-[18px] max-w-[200px] trancute text-gray-900">{{user.fName + ' ' + user.lName}}</h3>
+              <h3 class="font-nunito-light text-[12px] max-w-[200px] trancute text-gray-500">{{user.email}}</h3>
+           </div>
+      </div>
+  </div>
+
+  <div class="w-full bg-white rounded-xl p-6 mt-10">
+       <header class=" flex justify-between items-center">
+          <h1 class="font-nunito-regular text-[16px] text-gray-500 ">Edit Profile</h1>
+          <button class="px-5 py-2 rounded-md bg-indigo-500 text-white text-[12px]">Settings</button>
+       </header>
+
+       <form class="mt-10">
+          <h3 class="font-nunito-light text-gray-500 text-sm">USER INFORMATION</h3>
+          <div class="grid grid-cols-2 gap-3 mt-5">
+            <div class="flex flex-col">
+              <label class="font-nunito-light text-sm text-gray-500 mb-1" for="">Username</label>
+              <input type="text" class="px-3 py-2 rounded-lg border border-gray-600" value="{{ user.fName + ' ' + user.lName }}">
+            </div>
+            <div class="flex flex-col">
+              <label class="font-nunito-light text-sm text-gray-500 mb-1" for="">E-mail</label>
+              <input type="text" class="px-3 py-2 rounded-lg border border-gray-600" value="{{ user.email }}">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3 mt-5">
+            <div class="flex flex-col">
+              <label class="font-nunito-light text-sm text-gray-500 mb-1" for="">Nom</label>
+              <input type="text" class="px-3 py-2 rounded-lg border border-gray-600" value="{{ user.fName }}">
+            </div>
+            <div class="flex flex-col">
+              <label class="font-nunito-light text-sm text-gray-500 mb-1" for="">Prenom</label>
+              <input type="text" class="px-3 py-2 rounded-lg border border-gray-600" value="{{ user.lName }}">
+            </div>
+          </div>
+      </form>
+  </div>
+
+</div>

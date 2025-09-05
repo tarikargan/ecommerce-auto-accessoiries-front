@@ -1,0 +1,107 @@
+<div class="w-full relative">
+  <section class="w-full relative bg-white rounded-lg pt-6 grow overflow-y-auto  mt-[50px]" style="height: calc(100vh - 148px) ;">
+      <div class="dataTable-top mb-5 flex justify-between items-center px-6">
+        <h1 class="text-gray-600 font-nunito-bold">All Categories List</h1>
+
+        <div class="justify-end flex items-center gap-1">
+          <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
+            <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+              <svg class="w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+              </svg>
+            </span>
+            <input type="text" (keyup)="handleSearch($event)" class="pl-9 w-[280px] h-[32px] text-[12px] font-play-regular rounded-[0.5rem] border border-solid border-slate-700/30 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
+          </div>
+          <a routerLink="/admin/production-module/categories" data-type="csv" type="button" export-button-list=""
+            class="px-[16px] h-[32px] flex items-center  text-[12px] font-play-regular rounded-[0.5rem] bg-[#454ede] text-white">
+            <span class="whitespace-nowrap ">Categories</span>
+          </a>
+          <!-- </div> -->
+          <!-- <div> -->
+            <button (click)="toggleForm()" class="px-[16px] h-[32px] text-[12px] font-play-regular rounded-[0.5rem] flex items-center gap-2  border bg-[#3742f4] text-white ">
+              <span class="whitespace-nowrap">Create sub-Category</span>
+            </button>
+          <!-- </div> -->
+        </div>
+      </div>
+
+
+        <!--  -->
+
+        <div class="w-full relative ">
+          <!-- listing  -->
+          <div class="relative w-full grow overflow-y-auto scrollbar_ pr-1">
+
+            <table class="w-full table-auto rounded-t-md">
+              <thead>
+                <tr class="rounded-md bg-[#FCFCFD] uppercase text-sm leading-normal border-b border-t border-gray-200 ">
+                  <!-- <th class="p-3 text-left text-gray-400 font-play-regular lowercase text-sm first-letter:uppercase">#</th> -->
+                  <td class="p-3 text-left text-[#5D7186] font-play-bold lowercase text-[14px] first-letter:uppercase">sub-Category Name</td>
+                  <td class="p-3 text-left text-[#5D7186] font-play-bold lowercase text-[14px] first-letter:uppercase">Category Name</td>
+                  <td class="p-3 text-left text-[#5D7186] font-play-bold lowercase text-[14px] first-letter:uppercase">Starting Price</td>
+                  <td class="p-3 text-left text-[#5D7186] font-play-bold lowercase text-[14px] first-letter:uppercase">Product count</td>
+                  <td class="p-3 text-left text-[#5D7186] font-play-bold lowercase text-[14px] first-letter:uppercase">Product Stock</td>
+                  <td class="p-3 text-left text-[#5D7186] font-play-bold lowercase text-[14px] first-letter:uppercase w-[80px]">Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="SubCategories?.length > 0; else noCategory">
+                  <tr class="border-b" *ngFor="let item of SubCategories; let i = index">
+                    <!-- <td class="font-nunito-regular text-gray-500 p-3">{{ i }}</td> -->
+                    <td class=" p-3 ">
+                      <div class="flex items-center gap-2 text-[314773] font-play-regular text-[14px]">
+                        {{ item?.name }}
+                      </div>
+                    </td>
+                    <td class="font-play-regular text-[14px] text-gray-500 p-3">{{ item?.category?.name }}</td>
+                    <td class="font-play-regular text-[14px] text-gray-500 p-3">$60 to $400</td>
+                    <td class="font-play-regular text-[14px] text-gray-500 p-3">25</td>
+                    <td class="font-play-regular text-[14px] text-gray-500 p-3">250</td>
+                    <td class="font-play-regular text-[14px] text-gray-500 p-3">
+                      <ul class="relative flex items-center">
+                        <li>
+                          <button (click)="handleEdit(item, i)" class="flex p-1 text-orange-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 text-[rgb(255,108,47)]" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M4 22h4m12 0h-8m1.888-18.337l.742-.742a3.146 3.146 0 1 1 4.449 4.45l-.742.74m-4.449-4.448s.093 1.576 1.483 2.966s2.966 1.483 2.966 1.483m-4.449-4.45L7.071 10.48c-.462.462-.693.692-.891.947a5.2 5.2 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-.875 2.626m14.08-8.13L14.93 11.52m-3.41 3.41c-.462.462-.692.692-.947.891q-.451.352-.969.599c-.291.139-.601.242-1.22.448l-2.626.876m0 0l-.641.213a.848.848 0 0 1-1.073-1.073l.213-.641m1.501 1.5l-1.5-1.5"></path></svg>
+                            <!-- <svg class="w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg> -->
+                          </button>
+                        </li>
+                        <li>
+                          <button (click)="handleDelete(item.id,i)" class="flex p-1 text-red-500" >
+                            <!-- <svg class="w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 stroke-[rgb(239,95,95)] text-[rgb(239,95,95)]" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M20.5 6h-17m5.67-2a3.001 3.001 0 0 1 5.66 0m3.544 11.4c-.177 2.654-.266 3.981-1.131 4.79s-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9m13.666 0l-.2 3"></path></svg>
+                          </button>
+                        </li>
+                    </ul>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-template #noCategory>
+                  <tr >
+                    <td colspan="3" class="border border-slate-200 p-3 font-nunito-regular text-red-500 text-center">aucun catégorie</td>
+                  </tr>
+                </ng-template>
+
+              </tbody>
+            </table>
+
+          </div>
+
+
+        </div>
+  </section>
+</div>
+
+
+<div *ngIf="displayForm" class="fixed top-0 left-0 bg-black/20 flex justify-end z-[9999999] w-full h-screen">
+   <app-subcategory-form
+   class="w-[70%]"
+   [subCategory]="subCategory"
+   [eventype]="eventype"
+   (hideForm)="hideForm()"
+   (addedCat)="addedCat($event)"
+   (updatedCat)="updatedCat($event)"
+   ></app-subcategory-form>
+</div>
+
+
+
